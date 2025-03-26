@@ -20,7 +20,6 @@ class AuthRepository {
   Future<String?> register(String email, String password) async {
     try {
       await _auth.createUserWithEmailAndPassword(email: email, password: password);
-      await _auth.authStateChanges().first;
     } on FirebaseAuthException catch (e) {
       String? errorMessage = errorMessages[e.code];
       return errorMessage;
