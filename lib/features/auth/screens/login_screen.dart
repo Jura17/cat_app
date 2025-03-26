@@ -39,6 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 TextField(
                   decoration: InputDecoration(hintText: "Passwort"),
                   controller: passwordController,
+                  obscureText: true,
                 ),
                 SizedBox(height: 20),
                 if (errorText != null)
