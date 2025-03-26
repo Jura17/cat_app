@@ -23,62 +23,26 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Column(
-              children: [
-                Text(
-                  "Name: ${data["name"] ?? ""}",
-                  style: Theme.of(context).textTheme.displaySmall,
-                ),
-                Text(
-                  "Age: ${data["age"] ?? ""}",
-                  style: Theme.of(context).textTheme.displaySmall,
-                ),
-                Text(
-                  "City: ${data["city"] ?? ""}",
-                  style: Theme.of(context).textTheme.displaySmall,
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                // ElevatedButton(onPressed: addData, child: Text("Add Data")),
-                // ElevatedButton(
-                //   onPressed: () async {
-                //     await readData();
-                //   },
-                //   child: Text("Read Data"),
-                // ),
-              ],
-            )
-          ],
+      appBar: AppBar(
+        actions: [
+          TextButton(
+              onPressed: widget.loginRepository.logout,
+              child: Text(
+                "Logout",
+                style: Theme.of(context).textTheme.labelLarge,
+              ))
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Center(
+          child: Text(
+            "Willkommen ${widget.user.email}",
+            style: Theme.of(context).textTheme.displaySmall,
+            textAlign: TextAlign.center,
+          ),
         ),
       ),
     );
   }
-
-  // Future<void> addData() async {
-  //   await firestore.collection("users").doc("testUser").set({
-  //     "name": "John Doe",
-  //     "age": 34,
-  //     "city": "Berlin",
-  //   });
-  // }
-
-  // Future<void> readData() async {
-  //   try {
-  //     DocumentSnapshot doc = await firestore.collection("users").doc("testUser").get();
-
-  //     if (doc.exists) {
-  //       setState(() {
-  //         data = doc.data() as Map<String, dynamic>;
-  //       });
-  //     }
-  //   } catch (e) {
-  //     print("Error fetching document: $e");
-  //   }
-  // }
 }

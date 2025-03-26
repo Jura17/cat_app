@@ -1,20 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_test_app/features/auth/data/error_messages.dart';
 
 class LoginRepository {
   final FirebaseAuth _auth;
   LoginRepository(this._auth);
 
-  // Um auf einen Stream zuhören
   Stream<User?> get onAuthChanged => _auth.authStateChanges();
 
-  // try-catch um User zu authentifizieren
   Future<String?> login(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
-      if (e.code == "invalid-credentials") {
-        return "Falsche Anmeldedaten";
-      }
+      String? errorMessage = errorMessages[e.code];
+      return errorMessage;
     }
     return null;
   }
@@ -23,14 +21,13 @@ class LoginRepository {
     try {
       await _auth.createUserWithEmailAndPassword(email: email, password: password);
     } on FirebaseAuthException catch (e) {
-      if (e.code == "email-already-in-use") {
-        return "E-Mail-Adresse ist bereits vergeben";
-      }
+      String? errorMessage = errorMessages[e.code];
+      return errorMessage;
     }
     return null;
   }
 
-  Future<void> logOut() async {
+  Future<void> logout() async {
     await _auth.signOut();
   }
 }

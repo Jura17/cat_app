@@ -1,16 +1,16 @@
 import 'package:firebase_test_app/features/auth/data/login_repository.dart';
-import 'package:firebase_test_app/features/auth/screens/register_screen.dart';
+import 'package:firebase_test_app/features/auth/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 
-class LoginScreen extends StatefulWidget {
+class RegisterScreen extends StatefulWidget {
   final LoginRepository loginRepository;
-  const LoginScreen({super.key, required this.loginRepository});
+  const RegisterScreen({super.key, required this.loginRepository});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
@@ -20,7 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Firebase Login"),
+        title: Text("Firebase Register"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -46,24 +46,25 @@ class _LoginScreenState extends State<LoginScreen> {
                     errorText!,
                     style: TextStyle(color: Colors.red),
                   ),
-                SizedBox(height: 30),
+                SizedBox(height: 40),
                 ElevatedButton(
-                    onPressed: login,
-                    child: Text(
-                      "Login",
-                      style: TextStyle(fontSize: 20),
-                    )),
+                  onPressed: register,
+                  child: Text(
+                    "Registrieren",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
               ],
             ),
             SizedBox(height: 20),
             Column(
               children: [
-                Text("Noch kein Account vorhanden?"),
+                Text("Bereits einen Account angelegt?"),
                 TextButton(
                   onPressed: () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    builder: (context) => RegisterScreen(loginRepository: widget.loginRepository),
+                    builder: (context) => LoginScreen(loginRepository: widget.loginRepository),
                   )),
-                  child: Text("Hier registrieren"),
+                  child: Text("Zum Login"),
                 )
               ],
             )
@@ -73,14 +74,14 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  void login() async {
+  void register() async {
     if (emailController.text.isEmpty || passwordController.text.isEmpty) {
       errorText = "Bitte E-Mail-Adresse und Passwort angeben";
       setState(() {});
       return;
     }
 
-    errorText = await widget.loginRepository.login(emailController.text, passwordController.text);
+    errorText = await widget.loginRepository.register(emailController.text, passwordController.text);
     setState(() {});
   }
 }
