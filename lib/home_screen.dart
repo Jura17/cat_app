@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_test_app/features/auth/data/login_repository.dart';
+import 'package:firebase_test_app/features/auth/data/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -10,7 +10,7 @@ class HomeScreen extends StatefulWidget {
     required this.loginRepository,
   });
   final User user;
-  final LoginRepository loginRepository;
+  final AuthRepository loginRepository;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();

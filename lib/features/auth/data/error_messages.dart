@@ -1,4 +1,5 @@
 Map<String, String> errorMessages = {
+  "fields-empty": "Bitte E-Mail-Adresse und Passwort angeben",
   "invalid-credential": "Anmeldedaten sind nicht korrekt",
   "invalid-email": "Keine gültige E-Mail-Adresse",
   "wrong-password": "Password ist nicht korrekt",

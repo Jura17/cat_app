@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_test_app/features/auth/data/error_messages.dart';
 
-class LoginRepository {
+class AuthRepository {
   final FirebaseAuth _auth;
-  LoginRepository(this._auth);
+  AuthRepository(this._auth);
 
   Stream<User?> get onAuthChanged => _auth.authStateChanges();
 
@@ -20,6 +20,7 @@ class LoginRepository {
   Future<String?> register(String email, String password) async {
     try {
       await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      await _auth.authStateChanges().first;
     } on FirebaseAuthException catch (e) {
       String? errorMessage = errorMessages[e.code];
       return errorMessage;
