@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_test_app/features/auth/data/auth_repository.dart';
+import 'package:firebase_test_app/features/auth/data/firebase_auth_repository.dart';
 import 'package:firebase_test_app/features/auth/screens/auth_screen.dart';
 import 'package:firebase_test_app/firebase_options.dart';
 import 'package:firebase_test_app/home_screen.dart';
@@ -13,8 +14,8 @@ void main() async {
   );
 
   FirebaseAuth auth = FirebaseAuth.instance;
-  final loginRepository = AuthRepository(auth);
-  runApp(MainApp(authRepository: loginRepository));
+  final AuthRepository authRepository = FirebaseAuthRepository(auth);
+  runApp(MainApp(authRepository: authRepository));
 }
 
 class MainApp extends StatelessWidget {
@@ -26,7 +27,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: StreamBuilder<User?>(
-          stream: authRepository.onAuthChanged,
+          stream: authRepository.onAuthChanged() as Stream<User?>,
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data != null) {
               final user = snapshot.data!;

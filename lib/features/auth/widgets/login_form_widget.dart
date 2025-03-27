@@ -1,5 +1,5 @@
-import 'package:firebase_test_app/features/auth/data/error_messages.dart';
 import 'package:firebase_test_app/features/auth/data/auth_repository.dart';
+import 'package:firebase_test_app/features/auth/data/error_messages.dart';
 
 import 'package:flutter/material.dart';
 
@@ -80,7 +80,12 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
       return;
     }
 
-    errorText = await widget.authRepository.login(widget.emailController.text, widget.passwordController.text);
+    errorText = await widget.authRepository
+        .signInWithEmailPassword(widget.emailController.text, widget.passwordController.text);
     setState(() {});
+  }
+
+  void googleLogin() async {
+    errorText = await widget.authRepository.signInWithGoogle();
   }
 }

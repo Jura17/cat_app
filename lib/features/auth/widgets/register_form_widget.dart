@@ -1,5 +1,5 @@
-import 'package:firebase_test_app/features/auth/data/error_messages.dart';
 import 'package:firebase_test_app/features/auth/data/auth_repository.dart';
+import 'package:firebase_test_app/features/auth/data/error_messages.dart';
 
 import 'package:flutter/material.dart';
 
@@ -80,7 +80,8 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
       return;
     }
 
-    errorText = await widget.authRepository.register(widget.emailController.text, widget.passwordController.text);
+    errorText = await widget.authRepository
+        .registerWithEmailPassword(widget.emailController.text, widget.passwordController.text);
     setState(() {});
   }
 }

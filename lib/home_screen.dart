@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_test_app/features/auth/data/auth_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,16 +16,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  Map<String, dynamic> data = {};
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         actions: [
           TextButton(
-              onPressed: widget.loginRepository.logout,
+              onPressed: widget.loginRepository.logOut,
               child: Text(
                 "Logout",
                 style: Theme.of(context).textTheme.labelLarge,

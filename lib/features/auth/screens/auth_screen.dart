@@ -31,19 +31,21 @@ class _AuthScreenState extends State<AuthScreen> {
             ? RegisterFormWidget(
                 emailController: emailController,
                 passwordController: passwordController,
-                showRegisterWidgetFunction: showRegisterWidgetFunction,
-                authRepository: widget.loginRepository)
+                showRegisterWidgetFunction: updateAuthScreenUI,
+                authRepository: widget.loginRepository,
+              )
             : LoginFormWidget(
                 emailController: emailController,
                 passwordController: passwordController,
-                showRegisterWidgetFunction: showRegisterWidgetFunction,
-                authRepository: widget.loginRepository),
+                showRegisterWidgetFunction: updateAuthScreenUI,
+                authRepository: widget.loginRepository,
+              ),
       ),
     );
   }
 
-  void showRegisterWidgetFunction(bool value) {
-    showRegisterWidget = value;
+  void updateAuthScreenUI(bool showRegister) {
+    showRegisterWidget = showRegister;
     setState(() {});
   }
 }
