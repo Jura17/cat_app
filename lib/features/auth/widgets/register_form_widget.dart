@@ -66,7 +66,8 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                 widget.showRegisterWidgetFunction(false);
               },
               child: Text("Zum Login"),
-            )
+            ),
+            ElevatedButton(onPressed: () => googleLogin(), child: Text("Google Login"))
           ],
         )
       ],
@@ -82,6 +83,11 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
 
     errorText = await widget.authRepository
         .registerWithEmailPassword(widget.emailController.text, widget.passwordController.text);
+    setState(() {});
+  }
+
+  void googleLogin() async {
+    errorText = await widget.authRepository.signInWithGoogle();
     setState(() {});
   }
 }

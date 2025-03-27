@@ -38,7 +38,6 @@ class FirebaseAuthRepository implements AuthRepository {
   Future<String?> signInWithGoogle() async {
     try {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-
       final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
 
       final credential = GoogleAuthProvider.credential(
@@ -58,6 +57,7 @@ class FirebaseAuthRepository implements AuthRepository {
 
   @override
   Future<void> logOut() async {
+    await GoogleSignIn().signOut();
     await _auth.signOut();
   }
 }

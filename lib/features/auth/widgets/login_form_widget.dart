@@ -66,7 +66,8 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 widget.showRegisterWidgetFunction(true);
               },
               child: Text("Hier registrieren"),
-            )
+            ),
+            ElevatedButton(onPressed: () => googleLogin(), child: Text("Google Login"))
           ],
         )
       ],
@@ -87,5 +88,6 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
 
   void googleLogin() async {
     errorText = await widget.authRepository.signInWithGoogle();
+    setState(() {});
   }
 }
