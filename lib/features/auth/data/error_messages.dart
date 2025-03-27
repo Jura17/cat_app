@@ -8,4 +8,5 @@ Map<String, String> errorMessages = {
   "email-already-in-use": "E-Mail-Adresse ist bereits vergeben",
   "too-many-requests": "Zu viele Anmeldeversuche. Bitte versuche es später erneut.",
   "unknown-error": "Ein unbekannter Fehler ist aufgetreten.",
+  "passwords-do-not-match": "Passwörter stimmen nicht überein."
 };

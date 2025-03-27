@@ -29,14 +29,14 @@ class _AuthScreenState extends State<AuthScreen> {
         padding: const EdgeInsets.all(16.0),
         child: showRegisterWidget
             ? RegisterFormWidget(
-                emailController: emailController,
-                passwordController: passwordController,
+                // emailController: emailController,
+                // passwordController: passwordController,
                 showRegisterWidgetFunction: updateAuthScreenUI,
                 authRepository: widget.loginRepository,
               )
             : LoginFormWidget(
-                emailController: emailController,
-                passwordController: passwordController,
+                // emailController: emailController,
+                // passwordController: passwordController,
                 showRegisterWidgetFunction: updateAuthScreenUI,
                 authRepository: widget.loginRepository,
               ),

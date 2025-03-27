@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 class RegisterFormWidget extends StatefulWidget {
   const RegisterFormWidget({
     super.key,
-    required this.emailController,
-    required this.passwordController,
+    // required this.emailController,
+    // required this.passwordController,
     required this.showRegisterWidgetFunction,
     required this.authRepository,
   });
-  final TextEditingController emailController;
-  final TextEditingController passwordController;
+  // final TextEditingController emailController;
+  // final TextEditingController passwordController;
   final Function showRegisterWidgetFunction;
   final AuthRepository authRepository;
 
@@ -21,7 +21,18 @@ class RegisterFormWidget extends StatefulWidget {
 }
 
 class _RegisterFormWidgetState extends State<RegisterFormWidget> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController passwordConfirmController = TextEditingController();
   String? errorText;
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    passwordConfirmController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +45,18 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
           children: [
             TextField(
               decoration: InputDecoration(hintText: "E-Mail"),
-              controller: widget.emailController,
+              controller: emailController,
             ),
             SizedBox(height: 10),
             TextField(
               decoration: InputDecoration(hintText: "Passwort"),
-              controller: widget.passwordController,
+              controller: passwordController,
+              obscureText: true,
+            ),
+            SizedBox(height: 10),
+            TextField(
+              decoration: InputDecoration(hintText: "Passwort bestätigen"),
+              controller: passwordConfirmController,
               obscureText: true,
             ),
             SizedBox(height: 20),
@@ -52,7 +69,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
             ElevatedButton(
                 onPressed: register,
                 child: Text(
-                  "Register",
+                  "Registrieren",
                   style: TextStyle(fontSize: 20),
                 )),
           ],
@@ -67,7 +84,8 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
               },
               child: Text("Zum Login"),
             ),
-            ElevatedButton(onPressed: () => googleLogin(), child: Text("Google Login"))
+            SizedBox(height: 40),
+            ElevatedButton(onPressed: () => googleLogin(), child: Text("Über Google anmelden"))
           ],
         )
       ],
@@ -75,14 +93,19 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
   }
 
   void register() async {
-    if (widget.emailController.text.isEmpty || widget.passwordController.text.isEmpty) {
+    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
       errorText = errorMessages["fields-empty"];
       setState(() {});
       return;
     }
 
-    errorText = await widget.authRepository
-        .registerWithEmailPassword(widget.emailController.text, widget.passwordController.text);
+    if (passwordController.text != passwordConfirmController.text) {
+      errorText = errorMessages["passwords-do-not-match"];
+      setState(() {});
+      return;
+    }
+
+    errorText = await widget.authRepository.registerWithEmailPassword(emailController.text, passwordController.text);
     setState(() {});
   }
 

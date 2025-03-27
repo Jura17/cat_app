@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 class LoginFormWidget extends StatefulWidget {
   const LoginFormWidget({
     super.key,
-    required this.emailController,
-    required this.passwordController,
+    // required this.emailController,
+    // required this.passwordController,
     required this.showRegisterWidgetFunction,
     required this.authRepository,
   });
-  final TextEditingController emailController;
-  final TextEditingController passwordController;
+  // final TextEditingController emailController;
+  // final TextEditingController passwordController;
   final Function showRegisterWidgetFunction;
   final AuthRepository authRepository;
 
@@ -21,7 +21,16 @@ class LoginFormWidget extends StatefulWidget {
 }
 
 class _LoginFormWidgetState extends State<LoginFormWidget> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   String? errorText;
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,12 +43,12 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
           children: [
             TextField(
               decoration: InputDecoration(hintText: "E-Mail"),
-              controller: widget.emailController,
+              controller: emailController,
             ),
             SizedBox(height: 10),
             TextField(
               decoration: InputDecoration(hintText: "Passwort"),
-              controller: widget.passwordController,
+              controller: passwordController,
               obscureText: true,
             ),
             SizedBox(height: 20),
@@ -52,7 +61,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
             ElevatedButton(
                 onPressed: login,
                 child: Text(
-                  "Login",
+                  "Anmelden",
                   style: TextStyle(fontSize: 20),
                 )),
           ],
@@ -67,7 +76,8 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
               },
               child: Text("Hier registrieren"),
             ),
-            ElevatedButton(onPressed: () => googleLogin(), child: Text("Google Login"))
+            SizedBox(height: 40),
+            ElevatedButton(onPressed: () => googleLogin(), child: Text("Über Google anmelden"))
           ],
         )
       ],
@@ -75,14 +85,13 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
   }
 
   void login() async {
-    if (widget.emailController.text.isEmpty || widget.passwordController.text.isEmpty) {
+    if (emailController.text.isEmpty || passwordController.text.isEmpty) {
       errorText = errorMessages["fields-empty"];
       setState(() {});
       return;
     }
 
-    errorText = await widget.authRepository
-        .signInWithEmailPassword(widget.emailController.text, widget.passwordController.text);
+    errorText = await widget.authRepository.signInWithEmailPassword(emailController.text, passwordController.text);
     setState(() {});
   }
 
