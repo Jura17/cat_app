@@ -6,13 +6,10 @@ import 'package:flutter/material.dart';
 class LoginFormWidget extends StatefulWidget {
   const LoginFormWidget({
     super.key,
-    // required this.emailController,
-    // required this.passwordController,
     required this.showRegisterWidgetFunction,
     required this.authRepository,
   });
-  // final TextEditingController emailController;
-  // final TextEditingController passwordController;
+
   final Function showRegisterWidgetFunction;
   final AuthRepository authRepository;
 
@@ -42,12 +39,12 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
         Column(
           children: [
             TextField(
-              decoration: InputDecoration(hintText: "E-Mail"),
+              decoration: InputDecoration(hintText: "E-Mail", border: OutlineInputBorder()),
               controller: emailController,
             ),
             SizedBox(height: 10),
             TextField(
-              decoration: InputDecoration(hintText: "Passwort"),
+              decoration: InputDecoration(hintText: "Passwort", border: OutlineInputBorder()),
               controller: passwordController,
               obscureText: true,
             ),
@@ -57,13 +54,12 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 errorText!,
                 style: TextStyle(color: Colors.red),
               ),
-            SizedBox(height: 30),
+            SizedBox(height: 88),
             ElevatedButton(
-                onPressed: login,
-                child: Text(
-                  "Anmelden",
-                  style: TextStyle(fontSize: 20),
-                )),
+              onPressed: login,
+              child: Text("Anmelden", style: TextStyle(fontSize: 18)),
+            ),
+            SizedBox(height: 8),
           ],
         ),
         SizedBox(height: 20),
@@ -76,8 +72,6 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
               },
               child: Text("Hier registrieren"),
             ),
-            SizedBox(height: 40),
-            ElevatedButton(onPressed: () => googleLogin(), child: Text("Über Google anmelden"))
           ],
         )
       ],
@@ -92,11 +86,6 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
     }
 
     errorText = await widget.authRepository.signInWithEmailPassword(emailController.text, passwordController.text);
-    setState(() {});
-  }
-
-  void googleLogin() async {
-    errorText = await widget.authRepository.signInWithGoogle();
     setState(() {});
   }
 }

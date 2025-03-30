@@ -19,7 +19,7 @@ class MainApp extends StatelessWidget {
               final user = snapshot.data!;
               return HomeScreen(user: user, loginRepository: authRepository);
             }
-            return AuthScreen(loginRepository: authRepository);
+            return AuthScreen(authRepository: authRepository);
           }),
     );
   }

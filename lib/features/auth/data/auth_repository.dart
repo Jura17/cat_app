@@ -4,4 +4,5 @@ abstract class AuthRepository {
   Future<void> logOut();
   Future<String?> signInWithGoogle();
   Stream<dynamic> onAuthChanged();
+  Future<String?> resetPassword(String email);
 }

@@ -70,4 +70,9 @@ class MockAuthRepository implements AuthRepository {
     streamController.add(foundUser);
     return null;
   }
+
+  @override
+  Future<String?> resetPassword(String email) async {
+    return null;
+  }
 }

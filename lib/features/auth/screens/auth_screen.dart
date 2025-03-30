@@ -1,12 +1,15 @@
 import 'package:firebase_test_app/features/auth/data/auth_repository.dart';
+import 'package:firebase_test_app/features/auth/screens/password_reset_screen.dart';
 import 'package:firebase_test_app/features/auth/widgets/login_form_widget.dart';
 import 'package:firebase_test_app/features/auth/widgets/register_form_widget.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_signin_button/button_list.dart';
+import 'package:flutter_signin_button/button_view.dart';
 
 class AuthScreen extends StatefulWidget {
-  final AuthRepository loginRepository;
-  const AuthScreen({super.key, required this.loginRepository});
+  final AuthRepository authRepository;
+  const AuthScreen({super.key, required this.authRepository});
 
   @override
   State<AuthScreen> createState() => _AuthScreenState();
@@ -23,29 +26,60 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(showRegisterWidget ? "Firebase Register" : "Firebase Login"),
+        title: Text(showRegisterWidget ? "Registrieren" : "Anmelden"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: showRegisterWidget
-            ? RegisterFormWidget(
-                // emailController: emailController,
-                // passwordController: passwordController,
-                showRegisterWidgetFunction: updateAuthScreenUI,
-                authRepository: widget.loginRepository,
-              )
-            : LoginFormWidget(
-                // emailController: emailController,
-                // passwordController: passwordController,
-                showRegisterWidgetFunction: updateAuthScreenUI,
-                authRepository: widget.loginRepository,
-              ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AnimatedSwitcher(
+              duration: Duration(milliseconds: 300),
+              transitionBuilder: (child, animation) {
+                return SlideTransition(
+                  position: Tween<Offset>(begin: Offset(1.0, 0.0), end: Offset.zero).animate(animation),
+                  child: FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  ),
+                );
+              },
+              child: showRegisterWidget
+                  ? RegisterFormWidget(
+                      showRegisterWidgetFunction: toggleAuthScreenUI,
+                      authRepository: widget.authRepository,
+                    )
+                  : LoginFormWidget(
+                      showRegisterWidgetFunction: toggleAuthScreenUI,
+                      authRepository: widget.authRepository,
+                    ),
+            ),
+            SizedBox(height: 60),
+            SignInButton(Buttons.Google, onPressed: () => googleLogin()),
+            SizedBox(height: 30),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => PasswordResetScreen(authRepository: widget.authRepository),
+                  ),
+                );
+              },
+              child: Text("Passwort zurücksetzen"),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  void updateAuthScreenUI(bool showRegister) {
+  void toggleAuthScreenUI(bool showRegister) {
     showRegisterWidget = showRegister;
+    setState(() {});
+  }
+
+  void googleLogin() async {
+    errorText = await widget.authRepository.signInWithGoogle();
     setState(() {});
   }
 }

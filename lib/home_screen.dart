@@ -22,11 +22,12 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         actions: [
           TextButton(
-              onPressed: widget.loginRepository.logOut,
-              child: Text(
-                "Logout",
-                style: Theme.of(context).textTheme.labelLarge,
-              ))
+            onPressed: widget.loginRepository.logOut,
+            child: Text(
+              "Logout",
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
+          )
         ],
       ),
       body: Padding(

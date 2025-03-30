@@ -6,13 +6,10 @@ import 'package:flutter/material.dart';
 class RegisterFormWidget extends StatefulWidget {
   const RegisterFormWidget({
     super.key,
-    // required this.emailController,
-    // required this.passwordController,
     required this.showRegisterWidgetFunction,
     required this.authRepository,
   });
-  // final TextEditingController emailController;
-  // final TextEditingController passwordController;
+
   final Function showRegisterWidgetFunction;
   final AuthRepository authRepository;
 
@@ -44,18 +41,18 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
         Column(
           children: [
             TextField(
-              decoration: InputDecoration(hintText: "E-Mail"),
+              decoration: InputDecoration(hintText: "E-Mail", border: OutlineInputBorder()),
               controller: emailController,
             ),
             SizedBox(height: 10),
             TextField(
-              decoration: InputDecoration(hintText: "Passwort"),
+              decoration: InputDecoration(hintText: "Passwort", border: OutlineInputBorder()),
               controller: passwordController,
               obscureText: true,
             ),
             SizedBox(height: 10),
             TextField(
-              decoration: InputDecoration(hintText: "Passwort bestätigen"),
+              decoration: InputDecoration(hintText: "Passwort bestätigen", border: OutlineInputBorder()),
               controller: passwordConfirmController,
               obscureText: true,
             ),
@@ -67,11 +64,9 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
               ),
             SizedBox(height: 30),
             ElevatedButton(
-                onPressed: register,
-                child: Text(
-                  "Registrieren",
-                  style: TextStyle(fontSize: 20),
-                )),
+              onPressed: register,
+              child: Text("Registrieren", style: TextStyle(fontSize: 18)),
+            ),
           ],
         ),
         SizedBox(height: 20),
@@ -84,8 +79,6 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
               },
               child: Text("Zum Login"),
             ),
-            SizedBox(height: 40),
-            ElevatedButton(onPressed: () => googleLogin(), child: Text("Über Google anmelden"))
           ],
         )
       ],
@@ -106,11 +99,6 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
     }
 
     errorText = await widget.authRepository.registerWithEmailPassword(emailController.text, passwordController.text);
-    setState(() {});
-  }
-
-  void googleLogin() async {
-    errorText = await widget.authRepository.signInWithGoogle();
     setState(() {});
   }
 }

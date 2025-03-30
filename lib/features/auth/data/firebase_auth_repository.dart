@@ -60,4 +60,18 @@ class FirebaseAuthRepository implements AuthRepository {
     await GoogleSignIn().signOut();
     await _auth.signOut();
   }
+
+  @override
+  Future<String?> resetPassword(String email) async {
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+      return null;
+    } on FirebaseAuthException catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      print(e.code);
+      return "${errorMessages[e.code]}";
+    }
+  }
 }
