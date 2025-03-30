@@ -1,3 +1,4 @@
+import 'package:firebase_test_app/core/theme/app_colors.dart';
 import 'package:firebase_test_app/features/auth/data/auth_repository.dart';
 import 'package:firebase_test_app/features/auth/screens/password_reset_screen.dart';
 import 'package:firebase_test_app/features/auth/widgets/login_form_widget.dart';
@@ -25,14 +26,17 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(showRegisterWidget ? "Registrieren" : "Anmelden"),
-      ),
+      appBar: AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text(
+              "~ Katzen ~",
+              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: AppColors.primary),
+            ),
+            SizedBox(height: 30),
             AnimatedSwitcher(
               duration: Duration(milliseconds: 300),
               transitionBuilder: (child, animation) {
