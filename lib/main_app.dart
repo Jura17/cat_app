@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_test_app/core/theme/app_theme.dart';
 import 'package:firebase_test_app/features/auth/data/auth_repository.dart';
 import 'package:firebase_test_app/features/auth/screens/auth_screen.dart';
 import 'package:firebase_test_app/home_screen.dart';
@@ -12,6 +13,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: AppTheme.appTheme,
       home: StreamBuilder<User?>(
           stream: authRepository.onAuthChanged() as Stream<User?>,
           builder: (context, snapshot) {

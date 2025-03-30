@@ -72,7 +72,10 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
         SizedBox(height: 20),
         Column(
           children: [
-            Text("Bereits einen Account angelegt?"),
+            Text(
+              "Bereits einen Account angelegt?",
+              style: TextStyle(fontSize: 18),
+            ),
             TextButton(
               onPressed: () {
                 widget.showRegisterWidgetFunction(false);

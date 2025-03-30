@@ -65,7 +65,10 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
         SizedBox(height: 20),
         Column(
           children: [
-            Text("Noch kein Account vorhanden?"),
+            Text(
+              "Noch kein Account vorhanden?",
+              style: TextStyle(fontSize: 18),
+            ),
             TextButton(
               onPressed: () {
                 widget.showRegisterWidgetFunction(true);

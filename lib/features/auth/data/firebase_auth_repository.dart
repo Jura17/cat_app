@@ -51,6 +51,8 @@ class FirebaseAuthRepository implements AuthRepository {
         print('exception->$e');
       }
       return "Google-Fehler: $e";
+    } on AssertionError catch (_) {
+      return null;
     }
     return null;
   }
@@ -70,7 +72,7 @@ class FirebaseAuthRepository implements AuthRepository {
       if (kDebugMode) {
         print(e);
       }
-      print(e.code);
+
       return "${errorMessages[e.code]}";
     }
   }

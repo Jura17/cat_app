@@ -55,9 +55,14 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
             ),
             SizedBox(height: 60),
-            SignInButton(Buttons.Google, onPressed: () => googleLogin()),
+            SignInButton(
+              Buttons.Google,
+              onPressed: () => googleLogin(),
+              text: "Über Google anmelden",
+            ),
             SizedBox(height: 30),
             TextButton(
+              style: Theme.of(context).textButtonTheme.style,
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
