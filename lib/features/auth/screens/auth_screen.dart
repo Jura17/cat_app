@@ -54,13 +54,13 @@ class _AuthScreenState extends State<AuthScreen> {
                       authRepository: widget.authRepository,
                     ),
             ),
-            SizedBox(height: 60),
+            SizedBox(height: 30),
             SignInButton(
               Buttons.Google,
               onPressed: () => googleLogin(),
               text: "Über Google anmelden",
             ),
-            SizedBox(height: 30),
+            SizedBox(height: 100),
             TextButton(
               style: Theme.of(context).textButtonTheme.style,
               onPressed: () {
