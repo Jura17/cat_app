@@ -10,7 +10,10 @@ import 'package:flutter_signin_button/button_view.dart';
 
 class AuthScreen extends StatefulWidget {
   final AuthRepository authRepository;
-  const AuthScreen({super.key, required this.authRepository});
+  const AuthScreen({
+    super.key,
+    required this.authRepository,
+  });
 
   @override
   State<AuthScreen> createState() => _AuthScreenState();
