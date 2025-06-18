@@ -18,6 +18,7 @@ class RegisterFormWidget extends StatefulWidget {
 }
 
 class _RegisterFormWidgetState extends State<RegisterFormWidget> {
+  final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController passwordConfirmController = TextEditingController();
@@ -25,6 +26,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
 
   @override
   void dispose() {
+    usernameController.dispose();
     emailController.dispose();
     passwordController.dispose();
     passwordConfirmController.dispose();
@@ -40,6 +42,11 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
       children: [
         Column(
           children: [
+            TextField(
+              decoration: InputDecoration(hintText: "Username", border: OutlineInputBorder()),
+              controller: usernameController,
+            ),
+            SizedBox(height: 10),
             TextField(
               decoration: InputDecoration(hintText: "E-Mail", border: OutlineInputBorder()),
               controller: emailController,
@@ -101,7 +108,14 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
       return;
     }
 
-    errorText = await widget.authRepository.registerWithEmailPassword(emailController.text, passwordController.text);
-    setState(() {});
+    final String email = emailController.text;
+    final String password = passwordController.text;
+    final String username = usernameController.text;
+
+    final error = await widget.authRepository.registerWithEmailPassword(email, password, username);
+    if (!mounted) return;
+    setState(() {
+      errorText = error;
+    });
   }
 }

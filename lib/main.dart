@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_test_app/features/auth/data/auth_repository.dart';
 import 'package:firebase_test_app/features/auth/data/firebase_auth_repository.dart';
 import 'package:firebase_test_app/features/auth/data/firestore_user_repository.dart';
+
 import 'package:firebase_test_app/features/auth/data/user_repository.dart';
 import 'package:firebase_test_app/firebase_options.dart';
 
@@ -16,11 +17,10 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // Firebase-Instanz wird erstellt und repo mitgegeben
   final FirebaseAuth auth = FirebaseAuth.instance;
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
-  final AuthRepository authRepository = FirebaseAuthRepository(auth);
   final UserRepository userRepository = FirestoreUserRepository(firestore);
+  final AuthRepository authRepository = FirebaseAuthRepository(auth: auth, userRepository: userRepository);
 
   runApp(MainApp(
     authRepository: authRepository,

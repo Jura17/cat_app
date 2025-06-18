@@ -42,7 +42,7 @@ class _FirestoreDataInfoScreenState extends State<FirestoreDataInfoScreen> {
                         itemBuilder: (context, index) {
                           return ListTile(
                             leading: Text(allUsers[index].name),
-                            title: Text(allUsers[index].email),
+                            // title: Text(allUsers[index].age.toString()),
                           );
                         },
                       ),

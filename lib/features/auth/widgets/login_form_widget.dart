@@ -88,7 +88,10 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
       return;
     }
 
-    errorText = await widget.authRepository.signInWithEmailPassword(emailController.text, passwordController.text);
-    setState(() {});
+    final error = await widget.authRepository.signInWithEmailPassword(emailController.text, passwordController.text);
+    if (!mounted) return;
+    setState(() {
+      errorText = error;
+    });
   }
 }

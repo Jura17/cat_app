@@ -3,13 +3,13 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 import 'package:firebase_test_app/features/auth/data/auth_repository.dart';
 import 'package:firebase_test_app/features/auth/data/error_messages.dart';
-import 'package:firebase_test_app/features/auth/models/user_data.dart';
+import 'package:firebase_test_app/features/auth/models/auth_data.dart';
 import 'package:uuid/uuid.dart';
 
 class MockAuthRepository implements AuthRepository {
-  final List<UserData> users = [];
+  final List<AuthData> users = [];
 
-  StreamController<UserData?> streamController = StreamController<UserData?>();
+  StreamController<AuthData?> streamController = StreamController<AuthData?>();
 
   @override
   Future<void> logOut() async {
@@ -22,14 +22,14 @@ class MockAuthRepository implements AuthRepository {
   }
 
   @override
-  Future<String?> registerWithEmailPassword(String email, String password) async {
+  Future<String?> registerWithEmailPassword(String email, String password, String username) async {
     // überprüfe ob User bereits vorhanden
     final foundUser = users.firstWhereOrNull((user) => user.email == email);
 
     if (foundUser != null) {
       return errorMessages["email-already-in-use"];
     } else {
-      final user = UserData(email: email, password: password, uid: Uuid().v4());
+      final user = AuthData(email: email, password: password, uid: Uuid().v4());
 
       // zur "Datenbank" hinzufügen
       users.add(user);
@@ -64,7 +64,7 @@ class MockAuthRepository implements AuthRepository {
     final foundUser = users.firstWhereOrNull((user) => user.email == googleTestEmail);
 
     if (foundUser == null) {
-      final user = UserData(email: googleTestEmail, password: googleTestEmail, uid: Uuid().v4());
+      final user = AuthData(email: googleTestEmail, password: googleTestEmail, uid: Uuid().v4());
       users.add(user);
     }
     streamController.add(foundUser);

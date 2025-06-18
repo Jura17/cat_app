@@ -32,7 +32,9 @@ class MainApp extends StatelessWidget {
                 userRepository: userRepository,
               );
             }
-            return AuthScreen(authRepository: authRepository);
+            return AuthScreen(
+              authRepository: authRepository,
+            );
           }),
     );
   }

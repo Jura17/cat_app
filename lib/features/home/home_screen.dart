@@ -43,11 +43,22 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Center(
           child: Column(
             children: [
-              Text(
-                "Willkommen ${widget.user.email}",
-                style: Theme.of(context).textTheme.displaySmall,
-                textAlign: TextAlign.center,
-              ),
+              FutureBuilder(
+                  future: widget.userRepository.getUser(widget.user.uid),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState != ConnectionState.done) {
+                      return CircularProgressIndicator();
+                    }
+                    if (snapshot.hasError || !snapshot.hasData) {
+                      return Text("An error has occurred: ${snapshot.error}");
+                    }
+                    final userData = snapshot.data!;
+                    return Text(
+                      "Willkommen ${userData.name}",
+                      style: Theme.of(context).textTheme.displaySmall,
+                      textAlign: TextAlign.center,
+                    );
+                  }),
               SizedBox(height: 20),
               FutureBuilder(
                 future: fetchImage(),

@@ -1,22 +1,35 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class DatabaseUser {
-  final String email;
   final String name;
-  // final DateTime lastLogin;
+  final DateTime createdAt;
+  final DateTime lastLogin;
+  // final int age;
   // final List<String> favoriteImageUrls;
 
   DatabaseUser({
-    required this.email,
     required this.name,
-    // required this.lastLogin,
+    required this.createdAt,
+    required this.lastLogin,
+    // required this.age,
     // required this.favoriteImageUrls,
   });
 
   factory DatabaseUser.fromMap(Map<String, dynamic> map) {
     return DatabaseUser(
-      email: map["email"],
-      name: map["name"],
-      // lastLogin: map["lastLogin"],
+      name: map["name"] as String,
+      createdAt: (map["createdAt"] as Timestamp).toDate(),
+      lastLogin: map["lastLogin"] != null ? (map["lastLogin"] as Timestamp).toDate() : DateTime.now(),
+      // age: map["age"],
       // favoriteImageUrls: map["favoriteImageUrls"]
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      "name": name,
+      "createdAt": Timestamp.fromDate(createdAt),
+      "lastLogin": Timestamp.fromDate(lastLogin),
+    };
   }
 }

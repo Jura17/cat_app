@@ -1,9 +1,9 @@
-class UserData {
+class AuthData {
   final String email;
   final String password;
   final String uid;
 
-  UserData({
+  AuthData({
     required this.email,
     required this.password,
     required this.uid,

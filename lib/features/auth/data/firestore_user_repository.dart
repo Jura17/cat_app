@@ -3,9 +3,27 @@ import 'package:firebase_test_app/features/auth/data/user_repository.dart';
 import 'package:firebase_test_app/features/auth/models/database_user.dart';
 
 class FirestoreUserRepository implements UserRepository {
+  final FirebaseFirestore _db;
+
   FirestoreUserRepository(this._db);
 
-  final FirebaseFirestore _db;
+  @override
+  Future<void> createUser({required String uid, required String username}) async {
+    final newUser = DatabaseUser(
+      name: username,
+      createdAt: DateTime.now(),
+      lastLogin: DateTime.now(),
+    );
+
+    await _db.collection('users').doc(uid).set(newUser.toMap());
+  }
+
+  @override
+  Future<void> updateLastLogin({required String uid}) async {
+    await _db.collection('users').doc(uid).update({
+      'lastLogin': FieldValue.serverTimestamp(),
+    });
+  }
 
   @override
   Future<List<DatabaseUser>> getAllUsers() async {
