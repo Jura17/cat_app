@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_test_app/features/auth/data/user_repository.dart';
-import 'package:firebase_test_app/features/auth/models/database_user.dart';
+import 'package:cat_app/features/auth/data/user_repository.dart';
+import 'package:cat_app/features/auth/models/database_user.dart';
 
 class FirestoreUserRepository implements UserRepository {
   final FirebaseFirestore _db;

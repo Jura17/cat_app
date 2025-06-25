@@ -1,5 +1,5 @@
-import 'package:firebase_test_app/features/auth/data/auth_repository.dart';
-import 'package:firebase_test_app/features/auth/data/error_messages.dart';
+import 'package:cat_app/features/auth/data/auth_repository.dart';
+import 'package:cat_app/features/auth/data/error_messages.dart';
 
 import 'package:flutter/material.dart';
 

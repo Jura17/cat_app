@@ -1,14 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_test_app/features/auth/data/auth_repository.dart';
-import 'package:firebase_test_app/features/auth/data/firebase_auth_repository.dart';
-import 'package:firebase_test_app/features/auth/data/firestore_user_repository.dart';
+import 'package:cat_app/features/auth/data/auth_repository.dart';
+import 'package:cat_app/features/auth/data/firebase_auth_repository.dart';
+import 'package:cat_app/features/auth/data/firestore_user_repository.dart';
 
-import 'package:firebase_test_app/features/auth/data/user_repository.dart';
-import 'package:firebase_test_app/firebase_options.dart';
+import 'package:cat_app/features/auth/data/user_repository.dart';
+import 'package:cat_app/firebase_options.dart';
 
-import 'package:firebase_test_app/main_app.dart';
+import 'package:cat_app/main_app.dart';
 import 'package:flutter/material.dart';
 
 void main() async {

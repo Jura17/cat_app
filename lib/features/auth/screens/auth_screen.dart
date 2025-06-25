@@ -1,8 +1,8 @@
-import 'package:firebase_test_app/core/theme/app_colors.dart';
-import 'package:firebase_test_app/features/auth/data/auth_repository.dart';
-import 'package:firebase_test_app/features/auth/screens/password_reset_screen.dart';
-import 'package:firebase_test_app/features/auth/widgets/login_form_widget.dart';
-import 'package:firebase_test_app/features/auth/widgets/register_form_widget.dart';
+import 'package:cat_app/core/theme/app_colors.dart';
+import 'package:cat_app/features/auth/data/auth_repository.dart';
+import 'package:cat_app/features/auth/screens/password_reset_screen.dart';
+import 'package:cat_app/features/auth/widgets/login_form_widget.dart';
+import 'package:cat_app/features/auth/widgets/register_form_widget.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/button_list.dart';

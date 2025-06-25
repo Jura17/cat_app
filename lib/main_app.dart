@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_test_app/core/theme/app_theme.dart';
-import 'package:firebase_test_app/features/auth/data/auth_repository.dart';
-import 'package:firebase_test_app/features/auth/data/user_repository.dart';
-import 'package:firebase_test_app/features/auth/screens/auth_screen.dart';
-import 'package:firebase_test_app/features/home/home_screen.dart';
+import 'package:cat_app/core/theme/app_theme.dart';
+import 'package:cat_app/features/auth/data/auth_repository.dart';
+import 'package:cat_app/features/auth/data/user_repository.dart';
+import 'package:cat_app/features/auth/screens/auth_screen.dart';
+import 'package:cat_app/features/home/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class MainApp extends StatelessWidget {

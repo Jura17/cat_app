@@ -1,5 +1,5 @@
-name: firebase_test_app
-description: "A new Flutter project."
+name: cat_app
+description: "A Firebase Practice app."
 publish_to: 'none'
 version: 0.1.0
 

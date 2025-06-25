@@ -1,5 +1,5 @@
-import 'package:firebase_test_app/features/auth/data/user_repository.dart';
-import 'package:firebase_test_app/features/auth/models/database_user.dart';
+import 'package:cat_app/features/auth/data/user_repository.dart';
+import 'package:cat_app/features/auth/models/database_user.dart';
 import 'package:flutter/material.dart';
 
 class FirestoreDataInfoScreen extends StatefulWidget {
