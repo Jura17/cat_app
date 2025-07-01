@@ -1,15 +1,20 @@
+import 'package:firebase_test_app/src/features/home/controller/cat_controller.dart';
+import 'package:firebase_test_app/src/features/home/data/cat_api.dart';
+import 'package:firebase_test_app/src/features/home/repository/cat_repository.dart';
+import 'package:firebase_test_app/src/features/home/service/cat_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:cat_app/features/auth/data/auth_repository.dart';
-import 'package:cat_app/features/auth/data/firebase_auth_repository.dart';
-import 'package:cat_app/features/auth/data/firestore_user_repository.dart';
+import 'package:firebase_test_app/src/features/auth/data/auth_repository.dart';
+import 'package:firebase_test_app/src/features/auth/data/firebase_auth_repository.dart';
+import 'package:firebase_test_app/src/features/auth/data/firestore_user_repository.dart';
 
-import 'package:cat_app/features/auth/data/user_repository.dart';
-import 'package:cat_app/firebase_options.dart';
+import 'package:firebase_test_app/src/features/auth/data/user_repository.dart';
+import 'package:firebase_test_app/src/firebase_options.dart';
 
-import 'package:cat_app/main_app.dart';
+import 'package:firebase_test_app/src/main_app.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,10 +27,22 @@ void main() async {
   final UserRepository userRepository = FirestoreUserRepository(firestore);
   final AuthRepository authRepository = FirebaseAuthRepository(auth: auth, userRepository: userRepository);
 
-  runApp(MainApp(
-    authRepository: authRepository,
-    userRepository: userRepository,
-  ));
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) {
+        final catApi = CatApi();
+        final catRepo = CatRepository(catApi);
+        final catService = CatService(catRepo);
+        final catController = CatController(catService);
+        catController.initialize();
+        return catController;
+      },
+      child: MainApp(
+        authRepository: authRepository,
+        userRepository: userRepository,
+      ),
+    ),
+  );
 }
 
 // API-Keys protection

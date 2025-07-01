@@ -4,15 +4,13 @@ class DatabaseUser {
   final String name;
   final DateTime createdAt;
   final DateTime lastLogin;
-  // final int age;
-  // final List<String> favoriteImageUrls;
+  final List<String> favoriteImageUrls;
 
   DatabaseUser({
     required this.name,
     required this.createdAt,
     required this.lastLogin,
-    // required this.age,
-    // required this.favoriteImageUrls,
+    required this.favoriteImageUrls,
   });
 
   factory DatabaseUser.fromMap(Map<String, dynamic> map) {
@@ -20,8 +18,7 @@ class DatabaseUser {
       name: map["name"] as String,
       createdAt: (map["createdAt"] as Timestamp).toDate(),
       lastLogin: map["lastLogin"] != null ? (map["lastLogin"] as Timestamp).toDate() : DateTime.now(),
-      // age: map["age"],
-      // favoriteImageUrls: map["favoriteImageUrls"]
+      favoriteImageUrls: List<String>.from(map["favoriteImageUrls"] ?? []),
     );
   }
 
@@ -30,6 +27,7 @@ class DatabaseUser {
       "name": name,
       "createdAt": Timestamp.fromDate(createdAt),
       "lastLogin": Timestamp.fromDate(lastLogin),
+      "favoriteImageUrls": favoriteImageUrls
     };
   }
 }

@@ -1,10 +1,10 @@
-import 'package:cat_app/features/auth/data/auth_repository.dart';
-import 'package:cat_app/features/auth/data/error_messages.dart';
+import 'package:firebase_test_app/src/features/auth/data/auth_repository.dart';
+import 'package:firebase_test_app/src/features/auth/data/error_messages.dart';
 
 import 'package:flutter/material.dart';
 
-class LoginFormWidget extends StatefulWidget {
-  const LoginFormWidget({
+class RegisterFormWidget extends StatefulWidget {
+  const RegisterFormWidget({
     super.key,
     required this.showRegisterWidgetFunction,
     required this.authRepository,
@@ -14,18 +14,22 @@ class LoginFormWidget extends StatefulWidget {
   final AuthRepository authRepository;
 
   @override
-  State<LoginFormWidget> createState() => _LoginFormWidgetState();
+  State<RegisterFormWidget> createState() => _RegisterFormWidgetState();
 }
 
-class _LoginFormWidgetState extends State<LoginFormWidget> {
+class _RegisterFormWidgetState extends State<RegisterFormWidget> {
+  final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController passwordConfirmController = TextEditingController();
   String? errorText;
 
   @override
   void dispose() {
+    usernameController.dispose();
     emailController.dispose();
     passwordController.dispose();
+    passwordConfirmController.dispose();
     super.dispose();
   }
 
@@ -39,6 +43,11 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
         Column(
           children: [
             TextField(
+              decoration: InputDecoration(hintText: "Username", border: OutlineInputBorder()),
+              controller: usernameController,
+            ),
+            SizedBox(height: 10),
+            TextField(
               decoration: InputDecoration(hintText: "E-Mail", border: OutlineInputBorder()),
               controller: emailController,
             ),
@@ -48,32 +57,37 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
               controller: passwordController,
               obscureText: true,
             ),
+            SizedBox(height: 10),
+            TextField(
+              decoration: InputDecoration(hintText: "Passwort bestätigen", border: OutlineInputBorder()),
+              controller: passwordConfirmController,
+              obscureText: true,
+            ),
             SizedBox(height: 20),
             if (errorText != null)
               Text(
                 errorText!,
                 style: TextStyle(color: Colors.red),
               ),
-            SizedBox(height: 88),
+            SizedBox(height: 30),
             ElevatedButton(
-              onPressed: login,
-              child: Text("Anmelden", style: TextStyle(fontSize: 18)),
+              onPressed: register,
+              child: Text("Registrieren", style: TextStyle(fontSize: 18)),
             ),
-            SizedBox(height: 8),
           ],
         ),
         SizedBox(height: 20),
         Column(
           children: [
             Text(
-              "Noch kein Account vorhanden?",
+              "Bereits einen Account angelegt?",
               style: TextStyle(fontSize: 18),
             ),
             TextButton(
               onPressed: () {
-                widget.showRegisterWidgetFunction(true);
+                widget.showRegisterWidgetFunction(false);
               },
-              child: Text("Hier registrieren"),
+              child: Text("Zum Login"),
             ),
           ],
         )
@@ -81,14 +95,24 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
     );
   }
 
-  void login() async {
+  void register() async {
     if (emailController.text.isEmpty || passwordController.text.isEmpty) {
       errorText = errorMessages["fields-empty"];
       setState(() {});
       return;
     }
 
-    final error = await widget.authRepository.signInWithEmailPassword(emailController.text, passwordController.text);
+    if (passwordController.text != passwordConfirmController.text) {
+      errorText = errorMessages["passwords-do-not-match"];
+      setState(() {});
+      return;
+    }
+
+    final String email = emailController.text;
+    final String password = passwordController.text;
+    final String username = usernameController.text;
+
+    final error = await widget.authRepository.registerWithEmailPassword(email, password, username);
     if (!mounted) return;
     setState(() {
       errorText = error;

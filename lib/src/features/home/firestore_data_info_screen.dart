@@ -1,5 +1,5 @@
-import 'package:cat_app/features/auth/data/user_repository.dart';
-import 'package:cat_app/features/auth/models/database_user.dart';
+import 'package:firebase_test_app/src/features/auth/data/user_repository.dart';
+import 'package:firebase_test_app/src/features/auth/models/database_user.dart';
 import 'package:flutter/material.dart';
 
 class FirestoreDataInfoScreen extends StatefulWidget {
@@ -42,7 +42,6 @@ class _FirestoreDataInfoScreenState extends State<FirestoreDataInfoScreen> {
                         itemBuilder: (context, index) {
                           return ListTile(
                             leading: Text(allUsers[index].name),
-                            // title: Text(allUsers[index].age.toString()),
                           );
                         },
                       ),

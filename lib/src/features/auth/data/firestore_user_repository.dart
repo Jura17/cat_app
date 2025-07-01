@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cat_app/features/auth/data/user_repository.dart';
-import 'package:cat_app/features/auth/models/database_user.dart';
+import 'package:firebase_test_app/src/features/auth/data/user_repository.dart';
+import 'package:firebase_test_app/src/features/auth/models/database_user.dart';
 
 class FirestoreUserRepository implements UserRepository {
   final FirebaseFirestore _db;
@@ -13,6 +13,7 @@ class FirestoreUserRepository implements UserRepository {
       name: username,
       createdAt: DateTime.now(),
       lastLogin: DateTime.now(),
+      favoriteImageUrls: <String>[],
     );
 
     await _db.collection('users').doc(uid).set(newUser.toMap());

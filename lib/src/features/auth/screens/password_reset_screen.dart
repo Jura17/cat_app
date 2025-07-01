@@ -1,4 +1,4 @@
-import 'package:cat_app/features/auth/data/auth_repository.dart';
+import 'package:firebase_test_app/src/features/auth/data/auth_repository.dart';
 import 'package:flutter/material.dart';
 
 class PasswordResetScreen extends StatefulWidget {
