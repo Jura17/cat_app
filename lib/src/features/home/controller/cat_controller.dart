@@ -15,6 +15,7 @@ class CatController extends ChangeNotifier {
   }
 
   Future<void> loadCatImage() async {
+    isLoading = true;
     _catImageUrl = await _service.getFilteredCatImage();
 
     isLoading = false;

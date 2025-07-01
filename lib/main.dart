@@ -1,3 +1,5 @@
+import 'package:firebase_test_app/src/features/favorites/favorites_controller.dart';
+import 'package:firebase_test_app/src/features/favorites/favorites_service.dart';
 import 'package:firebase_test_app/src/features/home/controller/cat_controller.dart';
 import 'package:firebase_test_app/src/features/home/data/cat_api.dart';
 import 'package:firebase_test_app/src/features/home/repository/cat_repository.dart';
@@ -26,17 +28,30 @@ void main() async {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   final UserRepository userRepository = FirestoreUserRepository(firestore);
   final AuthRepository authRepository = FirebaseAuthRepository(auth: auth, userRepository: userRepository);
+  final catApi = CatApi();
+  final catRepo = CatRepository(catApi);
+  final catService = CatService(catRepo);
+
+  final favoritesService = FavoritesService(userRepository);
 
   runApp(
-    ChangeNotifierProvider(
-      create: (context) {
-        final catApi = CatApi();
-        final catRepo = CatRepository(catApi);
-        final catService = CatService(catRepo);
-        final catController = CatController(catService);
-        catController.initialize();
-        return catController;
-      },
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) {
+            final catController = CatController(catService);
+            catController.initialize();
+            return catController;
+          },
+        ),
+        ChangeNotifierProvider(create: (_) => FavoritesController(favoritesService)),
+      ],
+      // create: (context) {
+
+      //   final catController = CatController(catService);
+      //   catController.initialize();
+      //   return catController;
+      // },
       child: MainApp(
         authRepository: authRepository,
         userRepository: userRepository,

@@ -2,8 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_test_app/src/core/theme/app_theme.dart';
 import 'package:firebase_test_app/src/features/auth/data/auth_repository.dart';
 import 'package:firebase_test_app/src/features/auth/data/user_repository.dart';
-import 'package:firebase_test_app/src/features/auth/screens/auth_screen.dart';
-import 'package:firebase_test_app/src/features/home/home_screen.dart';
+import 'package:firebase_test_app/src/features/auth/presentation/screens/auth_screen.dart';
+import 'package:firebase_test_app/src/features/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class MainApp extends StatelessWidget {
@@ -22,20 +22,21 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.appTheme,
       home: StreamBuilder<User?>(
-          stream: authRepository.onAuthChanged() as Stream<User?>,
-          builder: (context, snapshot) {
-            if (snapshot.hasData && snapshot.data != null) {
-              final user = snapshot.data!;
-              return HomeScreen(
-                user: user,
-                authRepository: authRepository,
-                userRepository: userRepository,
-              );
-            }
-            return AuthScreen(
+        stream: authRepository.onAuthChanged() as Stream<User?>,
+        builder: (context, snapshot) {
+          if (snapshot.hasData && snapshot.data != null) {
+            final user = snapshot.data!;
+            return HomeScreen(
+              user: user,
               authRepository: authRepository,
+              userRepository: userRepository,
             );
-          }),
+          }
+          return AuthScreen(
+            authRepository: authRepository,
+          );
+        },
+      ),
     );
   }
 }

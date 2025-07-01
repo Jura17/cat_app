@@ -50,4 +50,15 @@ class FirestoreUserRepository implements UserRepository {
     }
     return null;
   }
+
+  @override
+  Future<List<String>?> getFavorites(DatabaseUser user) async {
+    final favorites = user.favoriteImageUrls;
+    return favorites;
+  }
+
+  @override
+  Future<void> updateFavorites(List<String> favorites, String uid) async {
+    await _db.collection('users').doc(uid).update({'favorites': favorites});
+  }
 }

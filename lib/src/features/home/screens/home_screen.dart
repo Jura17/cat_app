@@ -1,12 +1,9 @@
-import 'dart:convert';
-
 import 'package:firebase_test_app/src/features/auth/data/auth_repository.dart';
 import 'package:firebase_test_app/src/features/auth/data/user_repository.dart';
 import 'package:firebase_test_app/src/features/home/controller/cat_controller.dart';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -95,30 +92,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   );
                 },
               ),
-              // FutureBuilder(
-              //   future: catController.catImageUrl,
-              //   builder: (context, snapshot) {
-              //     if (snapshot.connectionState != ConnectionState.done) {
-              //       return Center(child: CircularProgressIndicator());
-              //     } else if (snapshot.hasError) {
-              //       return Center(
-              //         child: Text("Fehler: ${snapshot.error}"),
-              //       );
-              //     } else if (!snapshot.hasData) {
-              //       return Center(child: Text("Keine Daten vorhanden."));
-              //     }
-              //     _imageUrl = snapshot.data;
-              //     return _imageUrl != null
-              //         ? SizedBox(
-              //             height: 400,
-              //             child: Image.network(
-              //               _imageUrl!,
-              //               fit: BoxFit.cover,
-              //             ),
-              //           )
-              //         : Center(child: Text("Ein Fehler ist aufgetreten."));
-              //   },
-              // ),
               SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {},
@@ -129,7 +102,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  reloadImage(catController);
+                  setState(() {
+                    catController.loadCatImage();
+                  });
                 },
                 child: Text(
                   "Nächstes Bild",
@@ -141,34 +116,5 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
-  }
-
-  Future<String?> fetchImage() async {
-    final String uri = "https://api.thecatapi.com/v1/images/search";
-
-    try {
-      final response = await http.get(Uri.parse(uri));
-
-      if (response.statusCode == 200) {
-        List<dynamic> data = jsonDecode(response.body);
-
-        if (data.isNotEmpty) {
-          return data[0]["url"];
-        } else {
-          return null;
-        }
-      } else {
-        return null;
-      }
-    } catch (error) {
-      return null;
-    }
-  }
-
-  void reloadImage(CatController catController) {
-    setState(() {
-      catController.isLoading = true;
-      catController.loadCatImage();
-    });
   }
 }

@@ -5,4 +5,6 @@ abstract class UserRepository {
   Future<void> updateLastLogin({required String uid});
   Future<DatabaseUser?> getUser(String uid);
   Future<List<DatabaseUser>> getAllUsers();
+  Future<List<String>?> getFavorites(DatabaseUser user);
+  Future<void> updateFavorites(List<String> favorites, String uid);
 }
