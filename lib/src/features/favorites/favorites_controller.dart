@@ -5,25 +5,34 @@ class FavoritesController extends ChangeNotifier {
   final FavoritesService service;
 
   bool isLoading = true;
-  List<String> _favorites = [];
+  Set<String> _favorites = {};
 
   FavoritesController(this.service);
 
-  List<String> get favorites => _favorites;
+  Set<String> get favorites => _favorites;
 
   Future<void> loadFavorites(String uid) async {
+    isLoading = true;
+    notifyListeners();
     final favorites = await service.getFavorites(uid);
-    if (favorites != null) _favorites = favorites;
+    if (favorites != null) _favorites = favorites.toSet();
+    isLoading = false;
     notifyListeners();
   }
 
-  Future<void> markAsFavorite(String url, String uid) async {
-    service.markAsFavorite(url, uid);
-    loadFavorites(uid);
+  Future<bool> markAsFavorite(String url, String uid) async {
+    final bool addedFavorite = await service.markAsFavorite(url, uid);
+    if (addedFavorite) {
+      _favorites.add(url);
+      notifyListeners();
+      return true;
+    }
+    return false;
   }
 
   Future<void> removeFavorite(String url, String uid) async {
-    service.removeFavorite(url, uid);
-    loadFavorites(uid);
+    await service.removeFavorite(url, uid);
+    _favorites.remove(url);
+    notifyListeners();
   }
 }

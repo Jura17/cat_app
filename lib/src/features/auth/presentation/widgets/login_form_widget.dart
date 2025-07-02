@@ -1,4 +1,5 @@
-import 'package:firebase_test_app/src/features/auth/data/auth_repository.dart';
+import 'package:firebase_test_app/src/features/auth/presentation/screens/password_reset_screen.dart';
+import 'package:firebase_test_app/src/features/auth/repositories/auth_repository.dart';
 import 'package:firebase_test_app/src/features/auth/data/error_messages.dart';
 
 import 'package:flutter/material.dart';
@@ -32,7 +33,6 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: 5,
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -54,7 +54,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 errorText!,
                 style: TextStyle(color: Colors.red),
               ),
-            SizedBox(height: 88),
+            SizedBox(height: 80),
             ElevatedButton(
               onPressed: login,
               child: Text("Anmelden", style: TextStyle(fontSize: 18)),
@@ -74,6 +74,18 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                 widget.showRegisterWidgetFunction(true);
               },
               child: Text("Hier registrieren"),
+            ),
+            SizedBox(height: 80),
+            TextButton(
+              style: Theme.of(context).textButtonTheme.style,
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => PasswordResetScreen(authRepository: widget.authRepository),
+                  ),
+                );
+              },
+              child: Text("Passwort zurücksetzen"),
             ),
           ],
         )

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:collection/collection.dart';
-import 'package:firebase_test_app/src/features/auth/data/auth_repository.dart';
+import 'package:firebase_test_app/src/features/auth/repositories/auth_repository.dart';
 import 'package:firebase_test_app/src/features/auth/data/error_messages.dart';
 import 'package:firebase_test_app/src/features/auth/models/auth_data.dart';
 import 'package:uuid/uuid.dart';

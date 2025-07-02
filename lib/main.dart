@@ -1,3 +1,4 @@
+import 'package:firebase_test_app/src/features/auth/controller/user_controller.dart';
 import 'package:firebase_test_app/src/features/favorites/favorites_controller.dart';
 import 'package:firebase_test_app/src/features/favorites/favorites_service.dart';
 import 'package:firebase_test_app/src/features/home/controller/cat_controller.dart';
@@ -7,11 +8,11 @@ import 'package:firebase_test_app/src/features/home/service/cat_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_test_app/src/features/auth/data/auth_repository.dart';
-import 'package:firebase_test_app/src/features/auth/data/firebase_auth_repository.dart';
-import 'package:firebase_test_app/src/features/auth/data/firestore_user_repository.dart';
+import 'package:firebase_test_app/src/features/auth/repositories/auth_repository.dart';
+import 'package:firebase_test_app/src/features/auth/repositories/firebase_auth_repository.dart';
+import 'package:firebase_test_app/src/features/auth/repositories/firestore_user_repository.dart';
 
-import 'package:firebase_test_app/src/features/auth/data/user_repository.dart';
+import 'package:firebase_test_app/src/features/auth/repositories/user_repository.dart';
 import 'package:firebase_test_app/src/firebase_options.dart';
 
 import 'package:firebase_test_app/src/main_app.dart';
@@ -37,21 +38,16 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
+        ChangeNotifierProvider(create: (_) => UserController(userRepository)),
         ChangeNotifierProvider(
           create: (_) {
             final catController = CatController(catService);
-            catController.initialize();
+            catController.loadCatImage();
             return catController;
           },
         ),
         ChangeNotifierProvider(create: (_) => FavoritesController(favoritesService)),
       ],
-      // create: (context) {
-
-      //   final catController = CatController(catService);
-      //   catController.initialize();
-      //   return catController;
-      // },
       child: MainApp(
         authRepository: authRepository,
         userRepository: userRepository,

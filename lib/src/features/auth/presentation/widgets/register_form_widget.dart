@@ -1,4 +1,4 @@
-import 'package:firebase_test_app/src/features/auth/data/auth_repository.dart';
+import 'package:firebase_test_app/src/features/auth/repositories/auth_repository.dart';
 import 'package:firebase_test_app/src/features/auth/data/error_messages.dart';
 
 import 'package:flutter/material.dart';
@@ -36,7 +36,6 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      spacing: 5,
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -69,14 +68,15 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
                 errorText!,
                 style: TextStyle(color: Colors.red),
               ),
-            SizedBox(height: 30),
+            SizedBox(height: 40),
             ElevatedButton(
               onPressed: register,
               child: Text("Registrieren", style: TextStyle(fontSize: 18)),
             ),
+            SizedBox(height: 50),
           ],
         ),
-        SizedBox(height: 20),
+        SizedBox(height: 15),
         Column(
           children: [
             Text(

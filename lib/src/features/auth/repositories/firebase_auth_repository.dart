@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_test_app/src/features/auth/data/auth_repository.dart';
+import 'package:firebase_test_app/src/features/auth/repositories/auth_repository.dart';
 import 'package:firebase_test_app/src/features/auth/data/error_messages.dart';
 
-import 'package:firebase_test_app/src/features/auth/data/user_repository.dart';
+import 'package:firebase_test_app/src/features/auth/repositories/user_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -39,29 +39,6 @@ class FirebaseAuthRepository implements AuthRepository {
       String? errorMessage = errorMessages[e.code];
       errorMessage ??= "Ein unbekannter Fehler ist aufgetreten.";
       return errorMessage;
-    }
-    return null;
-  }
-
-  @override
-  Future<String?> signInWithGoogle() async {
-    try {
-      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-      final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
-
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken,
-        idToken: googleAuth?.idToken,
-      );
-
-      await auth.signInWithCredential(credential);
-    } on Exception catch (e) {
-      if (kDebugMode) {
-        print('exception->$e');
-      }
-      return "Google-Fehler: $e";
-    } on AssertionError catch (_) {
-      return null;
     }
     return null;
   }

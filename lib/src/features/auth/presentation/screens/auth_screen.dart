@@ -1,12 +1,10 @@
 import 'package:firebase_test_app/src/core/theme/app_colors.dart';
-import 'package:firebase_test_app/src/features/auth/data/auth_repository.dart';
+import 'package:firebase_test_app/src/features/auth/repositories/auth_repository.dart';
 import 'package:firebase_test_app/src/features/auth/presentation/screens/password_reset_screen.dart';
 import 'package:firebase_test_app/src/features/auth/presentation/widgets/login_form_widget.dart';
 import 'package:firebase_test_app/src/features/auth/presentation/widgets/register_form_widget.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_signin_button/button_list.dart';
-import 'package:flutter_signin_button/button_view.dart';
 
 class AuthScreen extends StatefulWidget {
   final AuthRepository authRepository;
@@ -61,24 +59,6 @@ class _AuthScreenState extends State<AuthScreen> {
                       authRepository: widget.authRepository,
                     ),
             ),
-            SizedBox(height: 30),
-            SignInButton(
-              Buttons.Google,
-              onPressed: () => googleLogin(),
-              text: "Über Google anmelden",
-            ),
-            SizedBox(height: 100),
-            TextButton(
-              style: Theme.of(context).textButtonTheme.style,
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => PasswordResetScreen(authRepository: widget.authRepository),
-                  ),
-                );
-              },
-              child: Text("Passwort zurücksetzen"),
-            ),
           ],
         ),
       ),
@@ -86,12 +66,8 @@ class _AuthScreenState extends State<AuthScreen> {
   }
 
   void toggleAuthScreenUI(bool showRegister) {
-    showRegisterWidget = showRegister;
-    setState(() {});
-  }
-
-  void googleLogin() async {
-    errorText = await widget.authRepository.signInWithGoogle();
-    setState(() {});
+    setState(() {
+      showRegisterWidget = showRegister;
+    });
   }
 }

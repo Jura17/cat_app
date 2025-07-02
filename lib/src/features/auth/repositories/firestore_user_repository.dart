@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_test_app/src/features/auth/data/user_repository.dart';
+
 import 'package:firebase_test_app/src/features/auth/models/database_user.dart';
+import 'package:firebase_test_app/src/features/auth/repositories/user_repository.dart';
 
 class FirestoreUserRepository implements UserRepository {
   final FirebaseFirestore _db;
@@ -52,13 +53,17 @@ class FirestoreUserRepository implements UserRepository {
   }
 
   @override
-  Future<List<String>?> getFavorites(DatabaseUser user) async {
-    final favorites = user.favoriteImageUrls;
-    return favorites;
+  Future<List<String>> getFavorites(String uid) async {
+    final doc = await _db.collection("users").doc(uid).get();
+    final data = doc.data();
+    if (data == null || !data.containsKey('favoriteImageUrls')) return [];
+    return List<String>.from(data['favoriteImageUrls']);
   }
 
   @override
-  Future<void> updateFavorites(List<String> favorites, String uid) async {
-    await _db.collection('users').doc(uid).update({'favorites': favorites});
+  Future<void> updateFavorites(List<String> favoriteImageUrls, String uid) async {
+    await _db.collection('users').doc(uid).update({
+      'favoriteImageUrls': favoriteImageUrls,
+    });
   }
 }

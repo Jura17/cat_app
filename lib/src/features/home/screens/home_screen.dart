@@ -1,5 +1,8 @@
-import 'package:firebase_test_app/src/features/auth/data/auth_repository.dart';
-import 'package:firebase_test_app/src/features/auth/data/user_repository.dart';
+import 'package:firebase_test_app/src/features/auth/controller/user_controller.dart';
+import 'package:firebase_test_app/src/features/auth/repositories/auth_repository.dart';
+
+import 'package:firebase_test_app/src/features/favorites/favorites_controller.dart';
+import 'package:firebase_test_app/src/features/favorites/presentation/screens/favorites_gallery_screen.dart';
 import 'package:firebase_test_app/src/features/home/controller/cat_controller.dart';
 
 import 'package:flutter/material.dart';
@@ -11,34 +14,30 @@ class HomeScreen extends StatefulWidget {
     super.key,
     required this.user,
     required this.authRepository,
-    required this.userRepository,
   });
   final User user;
   final AuthRepository authRepository;
-  final UserRepository userRepository;
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String? _imageUrl;
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     final catController = context.watch<CatController>();
-    _imageUrl = catController.catImageUrl;
+    final favoritesController = context.read<FavoritesController>();
+    final userController = context.watch<UserController>();
+    final userName = userController.user?.name;
 
     return Scaffold(
       appBar: AppBar(
         actions: [
           TextButton(
-            onPressed: widget.authRepository.logOut,
+            onPressed: () async {
+              await widget.authRepository.logOut();
+              userController.resetUser();
+            },
             child: Text("Logout"),
           )
         ],
@@ -48,53 +47,62 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Center(
           child: Column(
             children: [
-              FutureBuilder(
-                future: widget.userRepository.getUser(widget.user.uid),
-                builder: (context, snapshot) {
-                  if (snapshot.connectionState != ConnectionState.done) {
-                    return CircularProgressIndicator();
-                  }
-                  if (snapshot.hasError || !snapshot.hasData) {
-                    return Text("An error has occurred: ${snapshot.error}");
-                  }
-                  final userData = snapshot.data!;
-                  return Text(
-                    "Willkommen ${userData.name}",
-                    style: Theme.of(context).textTheme.displaySmall,
-                    textAlign: TextAlign.center,
-                  );
-                },
-              ),
+              userController.isLoading
+                  ? CircularProgressIndicator()
+                  : Text(
+                      "Hallo $userName",
+                      style: Theme.of(context).textTheme.displaySmall,
+                      textAlign: TextAlign.center,
+                    ),
               SizedBox(height: 20),
-              AnimatedBuilder(
-                animation: catController,
-                builder: (context, _) {
-                  if (catController.isLoading) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
+              SizedBox(
+                height: 400,
+                child: AnimatedBuilder(
+                  animation: catController,
+                  builder: (context, _) {
+                    if (catController.isLoading) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
 
-                  if (catController.catImageUrl == null) {
-                    return const Center(
-                      child: Text("No image was fetched"),
-                    );
-                  }
+                    if (catController.catImageUrl == null) {
+                      return const Center(
+                        child: Text("Kein Bild geladen"),
+                      );
+                    }
 
-                  return Center(
-                    child: SizedBox(
+                    return Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 2,
+                        ),
+                      ),
                       height: 400,
                       child: Image.network(
-                        _imageUrl!,
+                        catController.catImageUrl!,
                         fit: BoxFit.cover,
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
               SizedBox(height: 20),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  if (catController.catImageUrl != null) {
+                    final bool added =
+                        await favoritesController.markAsFavorite(catController.catImageUrl!, widget.user.uid);
+                    if (mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(added ? "Zu Favoriten hinzugefügt" : "Bereits als Favorit gespeichert"),
+                        ),
+                      );
+                    }
+                  }
+                },
                 child: Text(
                   "Als Favorit markieren",
                   style: TextStyle(fontSize: 18),
@@ -102,15 +110,26 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  setState(() {
-                    catController.loadCatImage();
-                  });
+                  await catController.loadCatImage();
                 },
                 child: Text(
                   "Nächstes Bild",
                   style: TextStyle(fontSize: 18),
                 ),
               ),
+              Spacer(),
+              TextButton(
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => FavoritesGalleryScreen(uid: widget.user.uid),
+                  ),
+                ),
+                child: Text(
+                  "Zu Favoriten",
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+              SizedBox(height: 20),
             ],
           ),
         ),

@@ -1,4 +1,4 @@
-import 'package:firebase_test_app/src/features/auth/data/user_repository.dart';
+import 'package:firebase_test_app/src/features/auth/repositories/user_repository.dart';
 
 class FavoritesService {
   final UserRepository userRepo;
@@ -8,17 +8,26 @@ class FavoritesService {
   Future<List<String>?> getFavorites(String uid) async {
     final user = await userRepo.getUser(uid);
     if (user != null) {
-      final favorites = await userRepo.getFavorites(user);
+      final favorites = await userRepo.getFavorites(uid);
+
       return favorites;
     }
     return null;
   }
 
-  Future<void> markAsFavorite(String url, String uid) async {
+  Future<bool> markAsFavorite(String url, String uid) async {
     List<String>? favorites = await getFavorites(uid);
-    if (favorites != null) {
-      favorites.add(url);
+
+    if (favorites == null) return false;
+    Set<String> favoritesSet = favorites.toSet();
+    if (favoritesSet.contains(url)) {
+      return false;
+    } else {
+      favoritesSet.add(url);
+      favorites = favoritesSet.toList();
+
       await userRepo.updateFavorites(favorites, uid);
+      return true;
     }
   }
 
