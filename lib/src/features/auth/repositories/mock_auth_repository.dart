@@ -58,20 +58,6 @@ class MockAuthRepository implements AuthRepository {
   }
 
   @override
-  Future<String?> signInWithGoogle() async {
-    String googleTestEmail = "test@google.com";
-
-    final foundUser = users.firstWhereOrNull((user) => user.email == googleTestEmail);
-
-    if (foundUser == null) {
-      final user = AuthData(email: googleTestEmail, password: googleTestEmail, uid: Uuid().v4());
-      users.add(user);
-    }
-    streamController.add(foundUser);
-    return null;
-  }
-
-  @override
   Future<String?> resetPassword(String email) async {
     return null;
   }

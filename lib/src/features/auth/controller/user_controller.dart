@@ -7,23 +7,15 @@ class UserController extends ChangeNotifier {
 
   final UserRepository userRepository;
 
-  bool _isLoading = false;
   DatabaseUser? _user;
 
   DatabaseUser? get user => _user;
-  bool get isLoading => _isLoading;
 
   Future<void> loadUser(String uid) async {
-    _isLoading = true;
-    notifyListeners();
-
     try {
       _user = await userRepository.getUser(uid);
     } catch (e) {
       debugPrint("Failed to load user: $e");
-    } finally {
-      _isLoading = false;
-      notifyListeners();
     }
   }
 

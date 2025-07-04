@@ -16,6 +16,10 @@ class FavoritesGalleryScreen extends StatefulWidget {
 }
 
 class _FavoritesGalleryScreenState extends State<FavoritesGalleryScreen> {
+  bool deleteMode = false;
+
+  Set<String> selectedImages = {};
+
   @override
   Widget build(BuildContext context) {
     final favoritesController = context.watch<FavoritesController>();
@@ -24,6 +28,20 @@ class _FavoritesGalleryScreenState extends State<FavoritesGalleryScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Deine Favoriten"),
+        actions: [
+          TextButton.icon(
+            icon: Icon(
+              Icons.delete,
+              size: 25,
+            ),
+            onPressed: () {
+              deleteMode = !deleteMode;
+              setState(() {});
+              debugPrint(deleteMode.toString());
+            },
+            label: Text(deleteMode ? "Abbrechen" : "Löschen"),
+          )
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -37,37 +55,74 @@ class _FavoritesGalleryScreenState extends State<FavoritesGalleryScreen> {
                   crossAxisCount: 3,
                   children: [
                     ...favorites.map(
-                      (url) => GestureDetector(
-                        onTap: () async {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return FavoriteModal(
-                                imageUrl: url,
-                              );
-                            },
-                          );
-                          // await favoritesController.removeFavorite(url, widget.uid);
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.black,
-                              width: 2,
-                            ),
-                          ),
-                          key: Key(url),
-                          width: 75,
-                          height: 75,
-                          child: Image.network(
-                            url,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                      (url) => GalleryImage(
+                        deleteMode: deleteMode,
+                        url: url,
                       ),
                     )
                   ],
                 ),
+        ),
+      ),
+    );
+  }
+}
+
+class GalleryImage extends StatefulWidget {
+  const GalleryImage({super.key, required this.deleteMode, required this.url});
+
+  final bool deleteMode;
+  final String url;
+
+  @override
+  State<GalleryImage> createState() => _GalleryImageState();
+}
+
+class _GalleryImageState extends State<GalleryImage> {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () async {
+        if (widget.deleteMode) {
+          debugPrint("delete");
+        } else {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return FavoriteModal(
+                imageUrl: widget.url,
+              );
+            },
+          );
+        }
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.black,
+            width: 2,
+          ),
+        ),
+        key: Key(widget.url),
+        width: 75,
+        height: 75,
+        child: Stack(
+          children: [
+            SizedBox(
+              width: double.infinity,
+              height: double.infinity,
+              child: Image.network(
+                widget.url,
+                fit: BoxFit.cover,
+              ),
+            ),
+            if (widget.deleteMode)
+              Positioned(
+                top: 10,
+                right: 10,
+                child: Icon(Icons.delete),
+              ),
+          ],
         ),
       ),
     );

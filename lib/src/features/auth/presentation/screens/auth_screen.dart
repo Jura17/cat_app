@@ -1,6 +1,6 @@
 import 'package:firebase_test_app/src/core/theme/app_colors.dart';
 import 'package:firebase_test_app/src/features/auth/repositories/auth_repository.dart';
-import 'package:firebase_test_app/src/features/auth/presentation/screens/password_reset_screen.dart';
+
 import 'package:firebase_test_app/src/features/auth/presentation/widgets/login_form_widget.dart';
 import 'package:firebase_test_app/src/features/auth/presentation/widgets/register_form_widget.dart';
 

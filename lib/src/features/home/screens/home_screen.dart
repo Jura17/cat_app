@@ -4,6 +4,8 @@ import 'package:firebase_test_app/src/features/auth/repositories/auth_repository
 import 'package:firebase_test_app/src/features/favorites/favorites_controller.dart';
 import 'package:firebase_test_app/src/features/favorites/presentation/screens/favorites_gallery_screen.dart';
 import 'package:firebase_test_app/src/features/home/controller/cat_controller.dart';
+import 'package:firebase_test_app/src/features/home/widgets/error_container.dart';
+import 'package:firebase_test_app/src/features/home/widgets/image_container.dart';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -25,9 +27,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final catController = context.watch<CatController>();
+    final catController = context.read<CatController>();
     final favoritesController = context.read<FavoritesController>();
-    final userController = context.watch<UserController>();
+    final userController = context.read<UserController>();
     final userName = userController.user?.name;
 
     return Scaffold(
@@ -42,95 +44,70 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Center(
-          child: Column(
-            children: [
-              userController.isLoading
-                  ? CircularProgressIndicator()
-                  : Text(
-                      "Hallo $userName",
-                      style: Theme.of(context).textTheme.displaySmall,
-                      textAlign: TextAlign.center,
-                    ),
-              SizedBox(height: 20),
-              SizedBox(
-                height: 400,
-                child: AnimatedBuilder(
-                  animation: catController,
-                  builder: (context, _) {
-                    if (catController.isLoading) {
-                      return const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-
-                    if (catController.catImageUrl == null) {
-                      return const Center(
-                        child: Text("Kein Bild geladen"),
-                      );
-                    }
-
-                    return Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: Colors.black,
-                          width: 2,
-                        ),
-                      ),
-                      height: 400,
-                      child: Image.network(
-                        catController.catImageUrl!,
-                        fit: BoxFit.cover,
-                      ),
-                    );
-                  },
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Center(
+            child: Column(
+              children: [
+                Text(
+                  "Hallo ${userName ?? "Nutzer"}",
+                  style: Theme.of(context).textTheme.displaySmall,
+                  textAlign: TextAlign.center,
                 ),
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () async {
-                  if (catController.catImageUrl != null) {
-                    final bool added =
-                        await favoritesController.markAsFavorite(catController.catImageUrl!, widget.user.uid);
-                    if (mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text(added ? "Zu Favoriten hinzugefügt" : "Bereits als Favorit gespeichert"),
-                        ),
-                      );
-                    }
-                  }
-                },
-                child: Text(
-                  "Als Favorit markieren",
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  await catController.loadCatImage();
-                },
-                child: Text(
-                  "Nächstes Bild",
-                  style: TextStyle(fontSize: 18),
-                ),
-              ),
-              Spacer(),
-              TextButton(
-                onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => FavoritesGalleryScreen(uid: widget.user.uid),
+                SizedBox(height: 20),
+                SizedBox(
+                  height: 400,
+                  child: Consumer<CatController>(
+                    builder: (context, catController, _) {
+                      if (catController.isLoading) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+                      if (catController.catImageUrl == null) {
+                        return ErrorContainer();
+                      }
+                      return ImageContainer(catController: catController);
+                    },
                   ),
                 ),
-                child: Text(
-                  "Zu Favoriten",
-                  style: TextStyle(fontSize: 18),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () async {
+                    if (catController.catImageUrl != null) {
+                      await favoritesController.markAsFavorite(catController.catImageUrl!, widget.user.uid, context);
+                    }
+                  },
+                  child: Text(
+                    "Als Favorit markieren",
+                    style: TextStyle(fontSize: 18),
+                  ),
                 ),
-              ),
-              SizedBox(height: 20),
-            ],
+                ElevatedButton(
+                  onPressed: () async {
+                    await catController.loadCatImage();
+                  },
+                  child: Text(
+                    "Nächstes Bild",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+                Spacer(),
+                TextButton(
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => FavoritesGalleryScreen(uid: widget.user.uid),
+                    ),
+                  ),
+                  child: Text(
+                    "Zu Favoriten",
+                    style: TextStyle(fontSize: 18),
+                  ),
+                ),
+                SizedBox(height: 20),
+              ],
+            ),
           ),
         ),
       ),

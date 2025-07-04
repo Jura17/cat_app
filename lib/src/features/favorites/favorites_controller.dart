@@ -12,22 +12,23 @@ class FavoritesController extends ChangeNotifier {
   Set<String> get favorites => _favorites;
 
   Future<void> loadFavorites(String uid) async {
-    isLoading = true;
-    notifyListeners();
     final favorites = await service.getFavorites(uid);
     if (favorites != null) _favorites = favorites.toSet();
-    isLoading = false;
-    notifyListeners();
   }
 
-  Future<bool> markAsFavorite(String url, String uid) async {
+  Future<void> markAsFavorite(String url, String uid, BuildContext context) async {
     final bool addedFavorite = await service.markAsFavorite(url, uid);
     if (addedFavorite) {
       _favorites.add(url);
       notifyListeners();
-      return true;
     }
-    return false;
+    if (context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(addedFavorite ? "Zu Favoriten hinzugefügt" : "Bereits als Favorit gespeichert"),
+        ),
+      );
+    }
   }
 
   Future<void> removeFavorite(String url, String uid) async {
