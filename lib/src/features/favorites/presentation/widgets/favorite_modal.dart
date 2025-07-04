@@ -11,7 +11,8 @@ class FavoriteModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      child: SizedBox(
+      child: Container(
+        decoration: BoxDecoration(border: Border.all(width: 2)),
         child: Image.network(imageUrl),
       ),
     );

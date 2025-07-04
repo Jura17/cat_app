@@ -1,4 +1,5 @@
 import 'package:firebase_test_app/src/features/favorites/favorites_service.dart';
+import 'package:firebase_test_app/src/features/favorites/presentation/widgets/gallery_image.dart';
 import 'package:flutter/material.dart';
 
 class FavoritesController extends ChangeNotifier {
@@ -6,6 +7,7 @@ class FavoritesController extends ChangeNotifier {
 
   bool isLoading = true;
   Set<String> _favorites = {};
+  Set<String> selectedImages = {};
 
   FavoritesController(this.service);
 
@@ -35,5 +37,30 @@ class FavoritesController extends ChangeNotifier {
     await service.removeFavorite(url, uid);
     _favorites.remove(url);
     notifyListeners();
+  }
+
+  void handleSelection(GalleryImage image) {
+    if (selectedImages.contains(image.url)) {
+      selectedImages.remove(image.url);
+    } else {
+      selectedImages.add(image.url);
+    }
+    notifyListeners();
+  }
+
+  void deleteSelectedImages(String uid) async {
+    for (String url in selectedImages) {
+      await removeFavorite(url, uid);
+    }
+    selectedImages.clear();
+    notifyListeners();
+  }
+
+  void clearSelection() {
+    selectedImages.clear();
+  }
+
+  bool checkIfSelected(String url) {
+    return selectedImages.contains(url) ? true : false;
   }
 }
