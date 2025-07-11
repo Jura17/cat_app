@@ -1,4 +1,4 @@
-import 'package:firebase_test_app/src/features/home/repository/cat_repository.dart';
+import 'package:cat_app/src/features/home/repository/cat_repository.dart';
 import 'package:flutter/material.dart';
 
 class CatService {

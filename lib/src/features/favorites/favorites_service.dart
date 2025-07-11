@@ -1,4 +1,4 @@
-import 'package:firebase_test_app/src/features/auth/repositories/user_repository.dart';
+import 'package:cat_app/src/features/auth/repositories/user_repository.dart';
 
 class FavoritesService {
   final UserRepository userRepo;

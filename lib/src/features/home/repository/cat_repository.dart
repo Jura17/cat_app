@@ -1,4 +1,4 @@
-import 'package:firebase_test_app/src/features/home/data/cat_api.dart';
+import 'package:cat_app/src/features/home/data/cat_api.dart';
 
 class CatRepository {
   final CatApi _api;

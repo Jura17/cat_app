@@ -1,21 +1,21 @@
-import 'package:firebase_test_app/src/features/auth/controller/user_controller.dart';
-import 'package:firebase_test_app/src/features/favorites/favorites_controller.dart';
-import 'package:firebase_test_app/src/features/favorites/favorites_service.dart';
-import 'package:firebase_test_app/src/features/home/controller/cat_controller.dart';
-import 'package:firebase_test_app/src/features/home/data/cat_api.dart';
-import 'package:firebase_test_app/src/features/home/repository/cat_repository.dart';
-import 'package:firebase_test_app/src/features/home/service/cat_service.dart';
+import 'package:cat_app/src/features/auth/controller/user_controller.dart';
+import 'package:cat_app/src/features/favorites/favorites_controller.dart';
+import 'package:cat_app/src/features/favorites/favorites_service.dart';
+import 'package:cat_app/src/features/home/controller/cat_controller.dart';
+import 'package:cat_app/src/features/home/data/cat_api.dart';
+import 'package:cat_app/src/features/home/repository/cat_repository.dart';
+import 'package:cat_app/src/features/home/service/cat_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_test_app/src/features/auth/repositories/auth_repository.dart';
-import 'package:firebase_test_app/src/features/auth/repositories/firebase_auth_repository.dart';
-import 'package:firebase_test_app/src/features/auth/repositories/firestore_user_repository.dart';
+import 'package:cat_app/src/features/auth/repositories/auth_repository.dart';
+import 'package:cat_app/src/features/auth/repositories/firebase_auth_repository.dart';
+import 'package:cat_app/src/features/auth/repositories/firestore_user_repository.dart';
 
-import 'package:firebase_test_app/src/features/auth/repositories/user_repository.dart';
-import 'package:firebase_test_app/src/firebase_options.dart';
+import 'package:cat_app/src/features/auth/repositories/user_repository.dart';
+import 'package:cat_app/src/firebase_options.dart';
 
-import 'package:firebase_test_app/src/main_app.dart';
+import 'package:cat_app/src/main_app.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

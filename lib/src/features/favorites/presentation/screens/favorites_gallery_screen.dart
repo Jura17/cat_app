@@ -1,6 +1,6 @@
-import 'package:firebase_test_app/src/features/favorites/favorites_controller.dart';
+import 'package:cat_app/src/features/favorites/favorites_controller.dart';
 
-import 'package:firebase_test_app/src/features/favorites/presentation/widgets/gallery_image.dart';
+import 'package:cat_app/src/features/favorites/presentation/widgets/gallery_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

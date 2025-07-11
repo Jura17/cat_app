@@ -1,4 +1,4 @@
-import 'package:firebase_test_app/src/features/auth/models/database_user.dart';
+import 'package:cat_app/src/features/auth/models/database_user.dart';
 
 abstract class UserRepository {
   Future<void> createUser({required String uid, required String username});

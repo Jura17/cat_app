@@ -1,5 +1,5 @@
-name: firebase_test_app
-description: "A Firebase Practice app."
+name: cat_app
+description: "description: A personal Flutter project to practice Firebase, state management, and clean architecture in a cat-themed image app."
 publish_to: 'none'
 version: 0.1.0
 

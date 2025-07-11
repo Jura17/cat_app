@@ -1,5 +1,5 @@
-import 'package:firebase_test_app/src/features/favorites/favorites_service.dart';
-import 'package:firebase_test_app/src/features/favorites/presentation/widgets/gallery_image.dart';
+import 'package:cat_app/src/features/favorites/favorites_service.dart';
+import 'package:cat_app/src/features/favorites/presentation/widgets/gallery_image.dart';
 import 'package:flutter/material.dart';
 
 class FavoritesController extends ChangeNotifier {

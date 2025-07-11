@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_test_app/src/features/auth/repositories/auth_repository.dart';
-import 'package:firebase_test_app/src/features/auth/data/error_messages.dart';
+import 'package:cat_app/src/features/auth/repositories/auth_repository.dart';
+import 'package:cat_app/src/features/auth/data/error_messages.dart';
 
-import 'package:firebase_test_app/src/features/auth/repositories/user_repository.dart';
+import 'package:cat_app/src/features/auth/repositories/user_repository.dart';
 import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 

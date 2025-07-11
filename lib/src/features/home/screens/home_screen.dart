@@ -1,11 +1,11 @@
-import 'package:firebase_test_app/src/features/auth/controller/user_controller.dart';
-import 'package:firebase_test_app/src/features/auth/repositories/auth_repository.dart';
+import 'package:cat_app/src/features/auth/controller/user_controller.dart';
+import 'package:cat_app/src/features/auth/repositories/auth_repository.dart';
 
-import 'package:firebase_test_app/src/features/favorites/favorites_controller.dart';
-import 'package:firebase_test_app/src/features/favorites/presentation/screens/favorites_gallery_screen.dart';
-import 'package:firebase_test_app/src/features/home/controller/cat_controller.dart';
-import 'package:firebase_test_app/src/features/home/widgets/error_container.dart';
-import 'package:firebase_test_app/src/features/home/widgets/image_container.dart';
+import 'package:cat_app/src/features/favorites/favorites_controller.dart';
+import 'package:cat_app/src/features/favorites/presentation/screens/favorites_gallery_screen.dart';
+import 'package:cat_app/src/features/home/controller/cat_controller.dart';
+import 'package:cat_app/src/features/home/widgets/error_container.dart';
+import 'package:cat_app/src/features/home/widgets/image_container.dart';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
