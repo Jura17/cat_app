@@ -94,17 +94,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 Spacer(),
-                TextButton(
-                  onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => FavoritesGalleryScreen(uid: widget.user.uid),
-                    ),
-                  ),
-                  child: Text(
-                    "Zu Favoriten",
-                    style: TextStyle(fontSize: 18),
-                  ),
-                ),
                 SizedBox(height: 20),
               ],
             ),

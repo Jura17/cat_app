@@ -2,7 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_test_app/src/features/auth/controller/user_controller.dart';
 import 'package:firebase_test_app/src/features/auth/repositories/auth_repository.dart';
 import 'package:firebase_test_app/src/features/favorites/favorites_controller.dart';
-import 'package:firebase_test_app/src/features/home/screens/home_screen.dart';
+
+import 'package:firebase_test_app/src/navigation_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -32,9 +33,6 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("~ Katzen ~"),
-      ),
       body: Center(
         child: FutureBuilder(
           future: _initFuture,
@@ -47,7 +45,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
               );
             }
 
-            return HomeScreen(
+            return NavigationScaffold(
               user: widget.user,
               authRepository: widget.authRepository,
             );
