@@ -1,4 +1,4 @@
-import 'package:cat_app/src/features/home/repository/cat_repository.dart';
+import 'package:cat_app/src/features/fetch_images/repository/cat_repository.dart';
 import 'package:flutter/material.dart';
 
 class CatService {

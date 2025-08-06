@@ -1,10 +1,12 @@
+import 'package:cat_app/src/features/ai_integration/controller/gemini_controller.dart';
+import 'package:cat_app/src/features/ai_integration/data/gemini_api.dart';
 import 'package:cat_app/src/features/auth/controller/user_controller.dart';
 import 'package:cat_app/src/features/favorites/favorites_controller.dart';
 import 'package:cat_app/src/features/favorites/favorites_service.dart';
-import 'package:cat_app/src/features/home/controller/cat_controller.dart';
-import 'package:cat_app/src/features/home/data/cat_api.dart';
-import 'package:cat_app/src/features/home/repository/cat_repository.dart';
-import 'package:cat_app/src/features/home/service/cat_service.dart';
+import 'package:cat_app/src/features/fetch_images/controller/cat_controller.dart';
+import 'package:cat_app/src/features/fetch_images/data/cat_api.dart';
+import 'package:cat_app/src/features/fetch_images/repository/cat_repository.dart';
+import 'package:cat_app/src/features/fetch_images/service/cat_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -34,6 +36,8 @@ void main() async {
   final catApi = CatApi();
   final catRepo = CatRepository(catApi);
   final catService = CatService(catRepo);
+  final catController = CatController(catService);
+  final geminiApi = GeminiApi(catController);
 
   final favoritesService = FavoritesService(userRepository);
 
@@ -43,11 +47,11 @@ void main() async {
         ChangeNotifierProvider(create: (_) => UserController(userRepository)),
         ChangeNotifierProvider(
           create: (_) {
-            final catController = CatController(catService);
             catController.loadCatImage();
             return catController;
           },
         ),
+        ChangeNotifierProvider(create: (_) => GeminiController(geminiApi)),
         ChangeNotifierProvider(create: (_) => FavoritesController(favoritesService)),
       ],
       child: MainApp(

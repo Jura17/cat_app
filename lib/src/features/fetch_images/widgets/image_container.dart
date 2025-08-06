@@ -1,5 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cat_app/src/features/home/controller/cat_controller.dart';
+import 'package:cat_app/src/features/fetch_images/controller/cat_controller.dart';
 import 'package:flutter/material.dart';
 
 class ImageContainer extends StatelessWidget {

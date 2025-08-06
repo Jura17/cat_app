@@ -5,7 +5,7 @@ import 'package:cat_app/src/features/auth/repositories/auth_repository.dart';
 import 'package:cat_app/src/features/auth/repositories/user_repository.dart';
 import 'package:cat_app/src/features/auth/presentation/screens/auth_screen.dart';
 
-import 'package:cat_app/src/features/home/screens/loading_screen.dart';
+import 'package:cat_app/src/features/fetch_images/screens/loading_screen.dart';
 import 'package:flutter/material.dart';
 
 class MainApp extends StatelessWidget {

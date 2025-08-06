@@ -1,4 +1,4 @@
-import 'package:cat_app/src/features/home/service/cat_service.dart';
+import 'package:cat_app/src/features/fetch_images/service/cat_service.dart';
 import 'package:flutter/material.dart';
 
 class CatController extends ChangeNotifier {
