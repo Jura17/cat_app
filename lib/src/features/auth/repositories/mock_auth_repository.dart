@@ -23,7 +23,7 @@ class MockAuthRepository implements AuthRepository {
 
   @override
   Future<String?> registerWithEmailPassword(String email, String password, String username) async {
-    // überprüfe ob User bereits vorhanden
+    // check if user already exists
     final foundUser = users.firstWhereOrNull((user) => user.email == email);
 
     if (foundUser != null) {
@@ -31,10 +31,10 @@ class MockAuthRepository implements AuthRepository {
     } else {
       final user = AuthData(email: email, password: password, uid: Uuid().v4());
 
-      // zur "Datenbank" hinzufügen
+      // add to "database"
       users.add(user);
 
-      // "einloggen"
+      // "login"
       streamController.add(user);
     }
     return null;
@@ -42,7 +42,7 @@ class MockAuthRepository implements AuthRepository {
 
   @override
   Future<String?> signInWithEmailPassword(String email, String password) async {
-    // überprüfe ob User bereits vorhanden
+    // check if user already exists
     final foundUser = users.firstWhereOrNull((user) => user.email == email);
 
     if (foundUser == null) {

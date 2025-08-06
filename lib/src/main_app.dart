@@ -29,7 +29,7 @@ class MainApp extends StatelessWidget {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Scaffold(
               appBar: AppBar(
-                title: Text("~ Katzen ~"),
+                title: Text("~ Cats ~"),
               ),
               body: Center(
                 child: CircularProgressIndicator(),

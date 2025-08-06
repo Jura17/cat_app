@@ -27,7 +27,7 @@ class FavoritesController extends ChangeNotifier {
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(addedFavorite ? "Zu Favoriten hinzugefügt" : "Bereits als Favorit gespeichert"),
+          content: Text(addedFavorite ? "Added to favorites" : "Already one of your favorites"),
         ),
       );
     }

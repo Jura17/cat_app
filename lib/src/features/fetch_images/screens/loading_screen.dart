@@ -41,7 +41,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
               return CircularProgressIndicator();
             } else if (snapshot.hasError) {
               return Center(
-                child: Text("Ein Problem beim Laden der Nutzerdaten ist aufgetreten: ${snapshot.error}"),
+                child: Text("An error occurred while loading the user data: ${snapshot.error}"),
               );
             }
 

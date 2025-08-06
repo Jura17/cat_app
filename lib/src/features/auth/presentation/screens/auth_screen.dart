@@ -34,7 +34,7 @@ class _AuthScreenState extends State<AuthScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "~ Katzen ~",
+              "~ Cats ~",
               style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold, color: AppColors.primary),
             ),
             SizedBox(height: 30),

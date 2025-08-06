@@ -39,12 +39,12 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
         Column(
           children: [
             TextField(
-              decoration: InputDecoration(hintText: "E-Mail", border: OutlineInputBorder()),
+              decoration: InputDecoration(hintText: "Email", border: OutlineInputBorder()),
               controller: emailController,
             ),
             SizedBox(height: 10),
             TextField(
-              decoration: InputDecoration(hintText: "Passwort", border: OutlineInputBorder()),
+              decoration: InputDecoration(hintText: "Password", border: OutlineInputBorder()),
               controller: passwordController,
               obscureText: true,
             ),
@@ -57,7 +57,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
             SizedBox(height: 80),
             ElevatedButton(
               onPressed: login,
-              child: Text("Anmelden", style: TextStyle(fontSize: 18)),
+              child: Text("Login", style: TextStyle(fontSize: 18)),
             ),
             SizedBox(height: 8),
           ],
@@ -66,14 +66,14 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
         Column(
           children: [
             Text(
-              "Noch kein Account vorhanden?",
+              "You don't have an account yet?",
               style: TextStyle(fontSize: 18),
             ),
             TextButton(
               onPressed: () {
                 widget.showRegisterWidgetFunction(true);
               },
-              child: Text("Hier registrieren"),
+              child: Text("Sign up here"),
             ),
             SizedBox(height: 80),
             TextButton(
@@ -85,7 +85,7 @@ class _LoginFormWidgetState extends State<LoginFormWidget> {
                   ),
                 );
               },
-              child: Text("Passwort zurücksetzen"),
+              child: Text("Reset password"),
             ),
           ],
         )

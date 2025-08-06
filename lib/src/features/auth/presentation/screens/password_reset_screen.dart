@@ -20,20 +20,20 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Passwort zurücksetzen")),
+      appBar: AppBar(title: Text("Reset password")),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextField(
-              decoration: InputDecoration(hintText: "E-Mail", border: OutlineInputBorder()),
+              decoration: InputDecoration(hintText: "Email", border: OutlineInputBorder()),
               controller: _emailController,
             ),
             SizedBox(height: 20),
             _errorText == null
                 ? Text(
-                    "Eine Bestätigungs-E-Mail wurde verschickt.",
+                    "A confirmation-email has been sent.",
                     style: TextStyle(color: Colors.green),
                   )
                 : Text(
@@ -44,7 +44,7 @@ class _PasswordResetScreenState extends State<PasswordResetScreen> {
             ElevatedButton(
               onPressed: passwordReset,
               child: Text(
-                "Passwort zurücksetzen",
+                "Reset password",
                 style: TextStyle(fontSize: 18),
               ),
             )

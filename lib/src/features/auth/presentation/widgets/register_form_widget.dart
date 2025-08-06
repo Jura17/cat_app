@@ -47,18 +47,18 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
             ),
             SizedBox(height: 10),
             TextField(
-              decoration: InputDecoration(hintText: "E-Mail", border: OutlineInputBorder()),
+              decoration: InputDecoration(hintText: "Email", border: OutlineInputBorder()),
               controller: emailController,
             ),
             SizedBox(height: 10),
             TextField(
-              decoration: InputDecoration(hintText: "Passwort", border: OutlineInputBorder()),
+              decoration: InputDecoration(hintText: "Password", border: OutlineInputBorder()),
               controller: passwordController,
               obscureText: true,
             ),
             SizedBox(height: 10),
             TextField(
-              decoration: InputDecoration(hintText: "Passwort bestätigen", border: OutlineInputBorder()),
+              decoration: InputDecoration(hintText: "Confirm password", border: OutlineInputBorder()),
               controller: passwordConfirmController,
               obscureText: true,
             ),
@@ -71,7 +71,7 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
             SizedBox(height: 40),
             ElevatedButton(
               onPressed: register,
-              child: Text("Registrieren", style: TextStyle(fontSize: 18)),
+              child: Text("Sign up", style: TextStyle(fontSize: 18)),
             ),
             SizedBox(height: 50),
           ],
@@ -80,14 +80,14 @@ class _RegisterFormWidgetState extends State<RegisterFormWidget> {
         Column(
           children: [
             Text(
-              "Bereits einen Account angelegt?",
+              "You already have an account?",
               style: TextStyle(fontSize: 18),
             ),
             TextButton(
               onPressed: () {
                 widget.showRegisterWidgetFunction(false);
               },
-              child: Text("Zum Login"),
+              child: Text("Login in here"),
             ),
           ],
         )

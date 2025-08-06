@@ -32,7 +32,7 @@ class _FavoritesGalleryScreenState extends State<FavoritesGalleryScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Deine Favoriten"),
+          title: Text("Your Favorites"),
           actions: [
             TextButton.icon(
               icon: Icon(
@@ -44,7 +44,7 @@ class _FavoritesGalleryScreenState extends State<FavoritesGalleryScreen> {
                 if (!deleteMode) favoritesController.clearSelection();
                 setState(() {});
               },
-              label: Text(deleteMode ? "Abbrechen" : "Löschen"),
+              label: Text(deleteMode ? "Cancel" : "Delete"),
             )
           ],
         ),
@@ -55,7 +55,7 @@ class _FavoritesGalleryScreenState extends State<FavoritesGalleryScreen> {
               children: [
                 favorites.isEmpty
                     ? Text(
-                        "Hier gibt's noch nichts zu sehen",
+                        "Nothing to see here just yet.",
                         style: TextStyle(fontSize: 18),
                       )
                     : Expanded(
@@ -77,7 +77,7 @@ class _FavoritesGalleryScreenState extends State<FavoritesGalleryScreen> {
                     onPressed: () {
                       favoritesController.deleteSelectedImages(widget.uid);
                     },
-                    child: Text("Bilder löschen"),
+                    child: Text("Delete selected"),
                   )
               ],
             ),

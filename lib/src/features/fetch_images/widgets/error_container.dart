@@ -9,7 +9,7 @@ class ErrorContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: Text(
-        "Es konnte kein Bild geladen werden",
+        "There was an error loading the image",
         style: TextStyle(fontSize: 18),
       ),
     );

@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: [
                 Text(
-                  "Hallo ${userName ?? "Nutzer"}",
+                  "Hi there ${userName ?? "user"}",
                   style: Theme.of(context).textTheme.displaySmall,
                   textAlign: TextAlign.center,
                 ),
@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         }
                       },
                       child: Text(
-                        "Mag ich ❤️",
+                        "Like it ❤️",
                         style: TextStyle(fontSize: 18),
                       ),
                     ),
@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         });
                       },
                       child: Text(
-                        "Weiter",
+                        "Next one",
                         style: TextStyle(fontSize: 18),
                       ),
                     ),

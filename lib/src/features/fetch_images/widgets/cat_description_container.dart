@@ -33,7 +33,7 @@ class CatDescriptionContainer extends StatelessWidget {
                             await geminiController.loadGeminiResponse();
                           },
                           child: Text(
-                            "Was sehe ich da? 🐱",
+                            "What am I looking at? 🐱",
                             style: TextStyle(fontSize: 18),
                           ),
                         ),

@@ -37,7 +37,7 @@ class FirebaseAuthRepository implements AuthRepository {
       userRepository.createUser(uid: cred.user!.uid, username: username);
     } on FirebaseAuthException catch (e) {
       String? errorMessage = errorMessages[e.code];
-      errorMessage ??= "Ein unbekannter Fehler ist aufgetreten.";
+      errorMessage ??= "An unknown error has occurred.";
       return errorMessage;
     }
     return null;

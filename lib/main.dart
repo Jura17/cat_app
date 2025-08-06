@@ -61,9 +61,3 @@ void main() async {
     ),
   );
 }
-
-// API-Keys protection
-// 1.
-// 2. Firestore security rules
-// 3. Firebase app check
-// git rm --cached /datei/
