@@ -1,3 +1,4 @@
+import 'package:cat_app/firebase_options.dart';
 import 'package:cat_app/src/features/ai_integration/controller/gemini_controller.dart';
 import 'package:cat_app/src/features/ai_integration/data/gemini_api.dart';
 import 'package:cat_app/src/features/auth/controller/user_controller.dart';
@@ -15,7 +16,6 @@ import 'package:cat_app/src/features/auth/repositories/firebase_auth_repository.
 import 'package:cat_app/src/features/auth/repositories/firestore_user_repository.dart';
 
 import 'package:cat_app/src/features/auth/repositories/user_repository.dart';
-import 'package:cat_app/src/firebase_options.dart';
 
 import 'package:cat_app/src/main_app.dart';
 import 'package:flutter/material.dart';
