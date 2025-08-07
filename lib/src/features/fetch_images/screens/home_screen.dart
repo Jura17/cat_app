@@ -68,6 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ElevatedButton(
                       onPressed: () async {
                         if (catController.catImageUrl != null) {
+                          await favoritesController.addToGlobalFavorites(catController.catImageUrl!, widget.user.uid);
                           await favoritesController.markAsFavorite(
                               catController.catImageUrl!, widget.user.uid, context);
                         }

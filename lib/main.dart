@@ -2,6 +2,7 @@ import 'package:cat_app/firebase_options.dart';
 import 'package:cat_app/src/features/ai_integration/controller/gemini_controller.dart';
 import 'package:cat_app/src/features/ai_integration/data/gemini_api.dart';
 import 'package:cat_app/src/features/auth/controller/user_controller.dart';
+import 'package:cat_app/src/features/favorites/data/liked_images_firestore.dart';
 import 'package:cat_app/src/features/favorites/favorites_controller.dart';
 import 'package:cat_app/src/features/favorites/favorites_service.dart';
 import 'package:cat_app/src/features/fetch_images/controller/cat_controller.dart';
@@ -38,8 +39,8 @@ void main() async {
   final catService = CatService(catRepo);
   final catController = CatController(catService);
   final geminiApi = GeminiApi(catController);
-
-  final favoritesService = FavoritesService(userRepository);
+  final likedImagesFirestore = LikedImagesFirestore(db: firestore, userRepo: userRepository);
+  final favoritesService = FavoritesService(userRepo: userRepository, likedImagesFirestore: likedImagesFirestore);
 
   runApp(
     MultiProvider(

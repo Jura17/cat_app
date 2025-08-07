@@ -33,7 +33,12 @@ class FavoritesController extends ChangeNotifier {
     }
   }
 
+  Future<void> addToGlobalFavorites(String url, String uid) async {
+    await service.addToGlobalFavorites(url, uid);
+  }
+
   Future<void> removeFavorite(String url, String uid) async {
+    await service.removeLike(url, uid);
     await service.removeFavorite(url, uid);
     _favorites.remove(url);
     notifyListeners();

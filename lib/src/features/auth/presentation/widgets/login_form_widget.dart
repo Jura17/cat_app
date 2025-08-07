@@ -1,6 +1,6 @@
 import 'package:cat_app/src/features/auth/presentation/screens/password_reset_screen.dart';
 import 'package:cat_app/src/features/auth/repositories/auth_repository.dart';
-import 'package:cat_app/src/features/auth/data/error_messages.dart';
+import 'package:cat_app/src/features/auth/error_messages.dart';
 
 import 'package:flutter/material.dart';
 

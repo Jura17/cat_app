@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cat_app/src/features/auth/repositories/auth_repository.dart';
-import 'package:cat_app/src/features/auth/data/error_messages.dart';
+import 'package:cat_app/src/features/auth/error_messages.dart';
 
 import 'package:cat_app/src/features/auth/repositories/user_repository.dart';
 import 'package:flutter/foundation.dart';

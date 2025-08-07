@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:collection/collection.dart';
 import 'package:cat_app/src/features/auth/repositories/auth_repository.dart';
-import 'package:cat_app/src/features/auth/data/error_messages.dart';
+import 'package:cat_app/src/features/auth/error_messages.dart';
 import 'package:cat_app/src/features/auth/models/auth_data.dart';
 import 'package:uuid/uuid.dart';
 
