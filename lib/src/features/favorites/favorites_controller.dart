@@ -3,23 +3,25 @@ import 'package:cat_app/src/features/favorites/presentation/widgets/gallery_imag
 import 'package:flutter/material.dart';
 
 class FavoritesController extends ChangeNotifier {
-  final FavoritesService service;
+  final FavoritesService _service;
 
   bool isLoading = true;
   Set<String> _favorites = {};
   Set<String> selectedImages = {};
+  Set<String> _topTenImages = {};
 
-  FavoritesController(this.service);
+  FavoritesController(this._service);
 
   Set<String> get favorites => _favorites;
+  Set<String> get topTenImages => _topTenImages;
 
   Future<void> loadFavorites(String uid) async {
-    final favorites = await service.getFavorites(uid);
+    final favorites = await _service.getFavorites(uid);
     if (favorites != null) _favorites = favorites.toSet();
   }
 
   Future<void> markAsFavorite(String url, String uid, BuildContext context) async {
-    final bool addedFavorite = await service.markAsFavorite(url, uid);
+    final bool addedFavorite = await _service.markAsFavorite(url, uid);
     if (addedFavorite) {
       _favorites.add(url);
       notifyListeners();
@@ -33,13 +35,9 @@ class FavoritesController extends ChangeNotifier {
     }
   }
 
-  Future<void> addToGlobalFavorites(String url, String uid) async {
-    await service.addToGlobalFavorites(url, uid);
-  }
-
   Future<void> removeFavorite(String url, String uid) async {
-    await service.removeLike(url, uid);
-    await service.removeFavorite(url, uid);
+    // await _service.removeLike(url, uid);
+    await _service.removeFavorite(url, uid);
     _favorites.remove(url);
     notifyListeners();
   }

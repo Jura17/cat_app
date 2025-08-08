@@ -1,3 +1,4 @@
+import 'package:cat_app/src/features/top_ten_images/controller/top_ten_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cat_app/src/features/auth/controller/user_controller.dart';
 import 'package:cat_app/src/features/auth/repositories/auth_repository.dart';
@@ -27,7 +28,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     super.initState();
-    _initFuture = initUserData(context);
+    _initFuture = initAppData(context);
   }
 
   @override
@@ -55,8 +56,9 @@ class _LoadingScreenState extends State<LoadingScreen> {
     );
   }
 
-  Future<void> initUserData(BuildContext context) async {
+  Future<void> initAppData(BuildContext context) async {
     await context.read<UserController>().loadUser(widget.user.uid);
+    if (context.mounted) await context.read<TopTenController>().loadTopTenImages();
     if (context.mounted) await context.read<FavoritesController>().loadFavorites(widget.user.uid);
   }
 }

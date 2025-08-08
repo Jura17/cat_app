@@ -1,6 +1,7 @@
 import 'package:cat_app/src/features/favorites/favorites_controller.dart';
 
 import 'package:cat_app/src/features/favorites/presentation/widgets/gallery_image.dart';
+import 'package:cat_app/src/features/top_ten_images/controller/top_ten_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +23,7 @@ class _FavoritesGalleryScreenState extends State<FavoritesGalleryScreen> {
   @override
   Widget build(BuildContext context) {
     final favoritesController = context.watch<FavoritesController>();
+    final topTenController = context.read<TopTenController>();
     Set<String> favorites = favoritesController.favorites;
 
     // deselect all images when leaving the screen
@@ -74,7 +76,8 @@ class _FavoritesGalleryScreenState extends State<FavoritesGalleryScreen> {
                 // show button to delete selected images
                 if (deleteMode && favoritesController.selectedImages.isNotEmpty)
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      await topTenController.removeLike(favoritesController.selectedImages, widget.uid);
                       favoritesController.deleteSelectedImages(widget.uid);
                     },
                     child: Text("Delete selected"),

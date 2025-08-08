@@ -5,11 +5,12 @@ import 'package:cat_app/src/features/favorites/models/liked_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/widgets.dart';
 
-class LikedImagesFirestore {
+class TopTenFirestore {
   final FirebaseFirestore db;
   final UserRepository userRepo;
+  List<FirestoreImage> firestoreImages = [];
 
-  LikedImagesFirestore({
+  TopTenFirestore({
     required this.db,
     required this.userRepo,
   });
@@ -41,6 +42,8 @@ class LikedImagesFirestore {
     }
   }
 
+  List<FirestoreImage> get topTenImages => firestoreImages;
+
   String encodeUrl(String url) {
     return base64Url.encode(utf8.encode(url));
   }
@@ -59,5 +62,11 @@ class LikedImagesFirestore {
       // Image already exists, increment likeCount if not a favorite of current user yet
       await likedImagedocRef.update({'likeCount': FieldValue.increment(-1)});
     }
+  }
+
+  Future<List<FirestoreImage>> loadTopTenImages() async {
+    final topTenImagesRef = db.collection('likedImages').orderBy('likeCount', descending: true).limit(10);
+    final topTenImagesSnapshot = await topTenImagesRef.get();
+    return topTenImagesSnapshot.docs.map((doc) => FirestoreImage.fromMap(doc.data())).toList();
   }
 }

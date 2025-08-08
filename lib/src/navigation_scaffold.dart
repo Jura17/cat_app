@@ -1,3 +1,4 @@
+import 'package:cat_app/src/features/top_ten_images/presentation/top_ten_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cat_app/src/features/auth/repositories/auth_repository.dart';
 import 'package:cat_app/src/features/favorites/presentation/screens/favorites_gallery_screen.dart';
@@ -28,6 +29,7 @@ class _NavigationScaffoldState extends State<NavigationScaffold> {
         user: widget.user,
         authRepository: widget.authRepository,
       ),
+      TopTenScreen(),
       FavoritesGalleryScreen(uid: widget.user.uid)
     ];
 
@@ -40,6 +42,7 @@ class _NavigationScaffoldState extends State<NavigationScaffold> {
         }),
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.whatshot), label: 'Trending'),
           BottomNavigationBarItem(icon: Icon(Icons.favorite), label: 'Favorites'),
         ],
       ),

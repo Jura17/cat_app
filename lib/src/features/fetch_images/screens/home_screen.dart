@@ -7,6 +7,7 @@ import 'package:cat_app/src/features/favorites/favorites_controller.dart';
 import 'package:cat_app/src/features/fetch_images/controller/cat_controller.dart';
 import 'package:cat_app/src/features/fetch_images/widgets/cat_description_container.dart';
 import 'package:cat_app/src/features/fetch_images/widgets/cat_image_container.dart';
+import 'package:cat_app/src/features/top_ten_images/controller/top_ten_controller.dart';
 
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -33,6 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final userController = context.read<UserController>();
     final geminiController = context.watch<GeminiController>();
     final favoritesController = context.read<FavoritesController>();
+    final topTenController = context.read<TopTenController>();
     final userName = userController.user?.name;
 
     return Scaffold(
@@ -68,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ElevatedButton(
                       onPressed: () async {
                         if (catController.catImageUrl != null) {
-                          await favoritesController.addToGlobalFavorites(catController.catImageUrl!, widget.user.uid);
+                          await topTenController.addToGlobalFavorites(catController.catImageUrl!, widget.user.uid);
                           await favoritesController.markAsFavorite(
                               catController.catImageUrl!, widget.user.uid, context);
                         }

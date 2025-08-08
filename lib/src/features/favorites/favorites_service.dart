@@ -1,9 +1,9 @@
 import 'package:cat_app/src/features/auth/repositories/user_repository.dart';
-import 'package:cat_app/src/features/favorites/data/liked_images_firestore.dart';
+import 'package:cat_app/src/features/top_ten_images/data/top_ten_firestore.dart';
 
 class FavoritesService {
   final UserRepository userRepo;
-  final LikedImagesFirestore likedImagesFirestore;
+  final TopTenFirestore likedImagesFirestore;
 
   FavoritesService({
     required this.userRepo,
@@ -34,14 +34,6 @@ class FavoritesService {
       await userRepo.updateFavorites(favorites, uid);
       return true;
     }
-  }
-
-  Future<void> addToGlobalFavorites(String url, String uid) async {
-    await likedImagesFirestore.createImageDocument(url, uid);
-  }
-
-  Future<void> removeLike(String url, String uid) async {
-    await likedImagesFirestore.removeLike(url, uid);
   }
 
   Future<void> removeFavorite(String url, String uid) async {
