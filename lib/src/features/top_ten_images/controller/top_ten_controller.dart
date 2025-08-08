@@ -11,8 +11,8 @@ class TopTenController extends ChangeNotifier {
 
   List<String>? get topTenImages => _topTenImages;
 
-  Future<void> addToGlobalFavorites(String url, String uid) async {
-    await _service.addToGlobalFavorites(url, uid);
+  Future<bool> addToTopTenImages(String url, String uid) async {
+    return await _service.addToTopTenImages(url, uid);
   }
 
   Future<void> removeLike(Set<String> urls, String uid) async {

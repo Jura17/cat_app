@@ -70,7 +70,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ElevatedButton(
                       onPressed: () async {
                         if (catController.catImageUrl != null) {
-                          await topTenController.addToGlobalFavorites(catController.catImageUrl!, widget.user.uid);
+                          final updateHappened =
+                              await topTenController.addToTopTenImages(catController.catImageUrl!, widget.user.uid);
+                          // only reload images if something has changed
+                          if (updateHappened) await topTenController.loadTopTenImages();
                           await favoritesController.markAsFavorite(
                               catController.catImageUrl!, widget.user.uid, context);
                         }

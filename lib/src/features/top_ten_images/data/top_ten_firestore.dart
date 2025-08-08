@@ -15,7 +15,7 @@ class TopTenFirestore {
     required this.userRepo,
   });
 
-  Future<void> createImageDocument(String url, String uid) async {
+  Future<bool> imageLikeHandler(String url, String uid) async {
     String urlAsdocId = encodeUrl(url);
     final likedImagedocRef = db.collection('likedImages').doc(urlAsdocId);
     final userDoc = await db.collection('users').doc(uid).get();
@@ -25,9 +25,9 @@ class TopTenFirestore {
     final likedImageDocSnapshot = await likedImagedocRef.get();
 
     if (likedImageDocSnapshot.exists && !alreadyFavoriteOfCurrentUser) {
-      debugPrint('Exists but not liked by current user');
       // Image already exists, increment likeCount if not a favorite of current user yet
       await likedImagedocRef.update({'likeCount': FieldValue.increment(1)});
+      return true;
     }
 
     if (!likedImageDocSnapshot.exists) {
@@ -37,9 +37,10 @@ class TopTenFirestore {
         url: url,
         likeCount: 1,
       );
-
       await db.collection('likedImages').doc(urlAsdocId).set(newImage.toMap());
+      return true;
     }
+    return false;
   }
 
   List<FirestoreImage> get topTenImages => firestoreImages;
@@ -58,7 +59,6 @@ class TopTenFirestore {
     final likedImageDocSnapshot = await likedImagedocRef.get();
 
     if (likedImageDocSnapshot.exists && alreadyFavoriteOfCurrentUser) {
-      debugPrint('Exists and liked by current user');
       // Image already exists, increment likeCount if not a favorite of current user yet
       await likedImagedocRef.update({'likeCount': FieldValue.increment(-1)});
     }

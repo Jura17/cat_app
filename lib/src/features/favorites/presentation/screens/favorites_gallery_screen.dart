@@ -78,6 +78,7 @@ class _FavoritesGalleryScreenState extends State<FavoritesGalleryScreen> {
                   ElevatedButton(
                     onPressed: () async {
                       await topTenController.removeLike(favoritesController.selectedImages, widget.uid);
+                      await topTenController.loadTopTenImages();
                       favoritesController.deleteSelectedImages(widget.uid);
                     },
                     child: Text("Delete selected"),

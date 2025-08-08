@@ -10,8 +10,8 @@ class TopTenService {
     required this.likedImagesFirestore,
   });
 
-  Future<void> addToGlobalFavorites(String url, String uid) async {
-    await likedImagesFirestore.createImageDocument(url, uid);
+  Future<bool> addToTopTenImages(String url, String uid) async {
+    return await likedImagesFirestore.imageLikeHandler(url, uid);
   }
 
   Future<void> removeLike(String url, String uid) async {
