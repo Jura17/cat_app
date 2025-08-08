@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:cat_app/src/features/auth/repositories/user_repository.dart';
 import 'package:cat_app/src/features/favorites/models/liked_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/widgets.dart';
 
 class TopTenFirestore {
   final FirebaseFirestore db;

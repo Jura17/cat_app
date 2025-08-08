@@ -1,4 +1,5 @@
 import 'package:cat_app/src/features/top_ten_images/controller/top_ten_controller.dart';
+import 'package:cat_app/src/features/top_ten_images/presentation/top_ten_image_container.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,7 +21,7 @@ class _TopTenScreenState extends State<TopTenScreen> {
         title: Text("Top Ten Cats"),
       ),
       body: topTenImages.isEmpty
-          ? Text("Not a single cat has got a like yet :(")
+          ? Text("Not a single cat has been given a like yet :(")
           : ListView.builder(
               itemCount: topTenImages.length,
               itemBuilder: (BuildContext context, int index) {
@@ -28,11 +29,9 @@ class _TopTenScreenState extends State<TopTenScreen> {
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     children: [
-                      Text("No. ${index + 1}", style: TextStyle(fontSize: 18)),
-                      Image.network(
-                        topTenImages[index],
-                        fit: BoxFit.cover,
-                      )
+                      Text("No. ${index + 1} ${index == 0 ? '🎉🎊' : ''}",
+                          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                      TopTenImageContainer(topTenImages: topTenImages, index: index)
                     ],
                   ),
                 );

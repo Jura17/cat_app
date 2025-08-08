@@ -56,13 +56,13 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: [
                 Text(
-                  "Hi there ${userName ?? "user"}",
+                  "Hi there, ${userName ?? "user"}!",
                   style: Theme.of(context).textTheme.displaySmall,
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: 20),
                 CatImageContainer(),
-                SizedBox(height: 10),
+                SizedBox(height: 30),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   spacing: 10,

@@ -1,14 +1,14 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cat_app/src/features/fetch_images/controller/cat_controller.dart';
 import 'package:flutter/material.dart';
 
-class ImageContainer extends StatelessWidget {
-  const ImageContainer({
+class TopTenImageContainer extends StatelessWidget {
+  const TopTenImageContainer({
     super.key,
-    required this.catController,
+    required this.topTenImages,
+    required this.index,
   });
 
-  final CatController catController;
+  final List<String> topTenImages;
+  final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -25,10 +25,9 @@ class ImageContainer extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.all(Radius.circular(20)),
-        child: CachedNetworkImage(
+        child: Image.network(
+          topTenImages[index],
           fit: BoxFit.cover,
-          imageUrl: catController.catImageUrl!,
-          errorWidget: (context, url, error) => Icon(Icons.broken_image),
         ),
       ),
     );
