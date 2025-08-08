@@ -11,6 +11,7 @@ This app fetches random cat images from [The Cat API](https://api.thecatapi.com/
 - Sign in via Firebase Authentication.
 - Store favorites in Firestore tied to their user account.
 - Tap a button to get a description of the current cat image, powered by **Google Gemini**.
+- See the top ten most liked cat images
 
 ---
 
@@ -26,6 +27,9 @@ This app fetches random cat images from [The Cat API](https://api.thecatapi.com/
 <tr>
 <td><img src="assets/images/favorites_screen01.png" width="200"></td>
 <td><img src="assets/images/favorites_screen02.png" width="200"></td>
+</tr>
+<tr>
+<td><img src="assets/images/trending_page.png" width="200"></td>
 </tr>
 </table>
 
@@ -49,8 +53,8 @@ This app fetches random cat images from [The Cat API](https://api.thecatapi.com/
 ✅ Save images to personal favorites  
 ✅ View favorites in a gallery  
 ✅ Firebase user authentication  
-✅ Google sign-in  
-✅ "What am I looking at?" button – AI-powered image description  
+✅ "Cat Scanner" button – AI-powered image description  
+✅ Fetches and shows top ten most liked images
 ✅ Clean separation of logic, services, UI, and data layers
 
 ---
@@ -58,14 +62,13 @@ This app fetches random cat images from [The Cat API](https://api.thecatapi.com/
 ### 💡 Potential Improvements
 
 - Replace `Provider` with **Riverpod** for more scalable state management
-- Add offline support with local caching
 - Implement animations/transitions for smoother UX
-- Feed screen that shows which images are most popular among users
 
 ---
 
 ### 📁 Project Structure
 
+<pre lang="md">
 lib/
 ├── firebase_options.dart            # Firebase setup
 ├── main.dart                        # Entry point
@@ -76,9 +79,12 @@ lib/
     │   ├── ai_integration/          # Google Gemini integration
     │   ├── auth/                    # Auth logic and UI
     │   ├── favorites/               # Favorite cats gallery
-    │   └── fetch_images/            # Image fetching and home screen
+    │   ├── fetch_images/            # Image fetching and home screen
+    |   └── top_ten_images/          # Show the ten most liked images 
     ├── main_app.dart                # Root of the app widget
     └── navigation_scaffold.dart    # App-wide navigation structure
+</pre>
+
 
 
 ## 🔐 Environment Variables
